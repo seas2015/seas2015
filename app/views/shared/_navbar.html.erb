@@ -3,7 +3,7 @@
     color: white;
 }
 </style>
-<nav  style="margin-bottom:0%; background: linear-gradient(to bottom, #4d0066 90%,white 100%) ;width:1100px;border-radius:0px">
+<nav  style="margin-bottom:0%; background: linear-gradient(to bottom, #4d0066 90%,white 100%) ;width:1100px;border-radius:0px" >
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -18,18 +18,58 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse font-white" id="bs-example-navbar-collapse-1" >
       <ul class="nav navbar-nav">
-        <li><%= link_to 'Home', equipment_index_path %></li>
-        <li><%= link_to 'Advanced Search', equipment_search_path %></li>
-        <li><%= link_to 'Reserved', equipment_reserved_path %></li>
-        <li><%= link_to 'Audit', equipment_audit_path %></li>
-        <li><%= link_to 'History', '#' %></li>
-      </ul>
+        <li style="color:#4d0066">                                                ........................................................................</li>
+        <% @path = request.env['PATH_INFO'] %>
+
+        <% if @path == '/equipment' || @path == '/equipment/index' || @path == '/' %>
+          <li><%= link_to 'Home', equipment_index_path,style:"background-color:#F2F2F2;color:darkblue" %></li>
+        <% else %>
+          <li><%= link_to 'Home', equipment_index_path %></li>
+        <% end %>
+
+        <% if @path == '/equipment/search' %>
+         <li><%= link_to 'Advanced Search', equipment_search_path,style:"background-color:#F2F2F2;color:darkblue" %></li>
+        <% else %>
+          <li><%= link_to 'Advanced Search', equipment_search_path %></li>
+        <% end %>
+
+        <% if @path == '/equipment/reserved' %>
+          <li><%= link_to 'Reserved', equipment_reserved_path,style:"background-color:#F2F2F2;color:darkblue" %></li>
+        <% else %>
+          <li><%= link_to 'Reserved', equipment_reserved_path %></li>
+        <% end %>
+
+        <% if @path == '/equipment/audit' %>
+        <li><%= link_to 'Audit', equipment_audit_path,style:"background-color:#F2F2F2;color:darkblue" %></li>
+        <% else %>
+          <li><%= link_to 'Audit', equipment_audit_path %></li>
+        <% end %>
+
+        <% if @path == '/equipment/history' %>
+          <li><%= link_to 'History', '#',style:"background-color:#F2F2F2;color:darkblue" %></li>
+        <% else %>
+          <li><%= link_to 'History', '#' %></li>
+        <% end %>
+
+        </ul>
+    
       <ul class="nav navbar-nav navbar-right">
       <% if user_signed_in? %>
         <li><%= link_to 'Log out', destroy_user_session_path, :method => :delete %></li>
       <% else %>
-        <li><%= link_to 'Log in', new_user_session_path %></li>
-        <li><%= link_to 'Register', new_user_registration_path %></li>
+
+      <% if @path == '/users/sign_in' %>
+        <li><%= link_to 'Log in', new_user_session_path,style:"background-color:#F2F2F2;color:darkblue" %></li>
+      <% else %>
+        <li><%= link_to 'Log in', new_user_session_path%></li>
+      <% end %>
+
+      <% if @path == '/users/sign_up'%>
+        <li><%= link_to 'Register', new_user_registration_path,style:"background-color:#F2F2F2;color:darkblue"  %></li>
+      <% else %>
+         <li><%= link_to 'Register', new_user_registration_path  %></li>
+      <% end %>
+
       <% end %>
       </ul>
     </div>
