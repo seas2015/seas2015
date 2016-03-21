@@ -1,0 +1,44 @@
+<div class="navbar navbar-default" style="background-color:lightgrey; border-color:#e1b3ff;border-radius:0px;width:200px;height:550px" >
+      <div class="nav-collapse" >
+        <ul class="nav nav-pills nav-stacked sidebar-menu">
+          <li>
+          <br>
+            <table >
+              <tr>
+                <td>
+            <div class: "navbar-form" sytle="inline">
+            <%= form_tag equipment_search_path,method: 'get', role: "search" do %>
+              <div style="inline-block">
+                <%= text_field_tag 'keyword',"", placeholder: 'Search',style: "width:100%"%>
+              </td>
+              <td>
+                <%= button_tag(type: 'submit', data: { status: 'Available' }) do %>
+                  <i class="glyphicon glyphicon-search"></i>
+                <% end %>
+              
+            <% end %>
+          </td>
+          <td>
+              <%= form_tag '#', method: 'get' do %>
+               <%= button_tag(type: 'submit') do %>
+                  <i class="glyphicon glyphicon-qrcode"></i>
+                <% end %>
+                </div>
+            <% end %>
+          </div>
+        </td>
+        </tr>
+        </table>
+        <hr>
+          <li><%= link_to 'My Item', '#' %></li>
+          <li><%= link_to 'Search History', '#' %></li>
+          <li><%= link_to 'Request Manager', '#' %></li>
+          <li><%= link_to 'User Complaint', '#' %></li>
+          <li><%= link_to 'Comming Soon...', '#' %></li>
+          <li><%= link_to 'Comming Soon...', '#' %></li>
+      </ul>
+      <hr>
+      <br><br><br><br><br><br><br><br><br><br>
+      <div align="center"><font size='1.5em' style='color:grey' >Version 0.0.1 beta</font></div>
+      </div>
+</div>
