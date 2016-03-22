@@ -18,7 +18,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse font-white" id="bs-example-navbar-collapse-1" >
       <ul class="nav navbar-nav">
-        <li style="color:#4d0066">                                                ........................................................................</li>
+        <li style="color:#4d0066">                                                ............................................</li>
         <% @path = request.env['PATH_INFO'] %>
 
         <% if @path == '/equipment' || @path == '/equipment/index' || @path == '/' %>
@@ -33,27 +33,16 @@
           <li><%= link_to 'Advanced Search', equipment_search_path %></li>
         <% end %>
 
-        <% if @path == '/equipment/reserved' %>
-          <li><%= link_to 'Reserved', equipment_reserved_path,style:"background-color:#F2F2F2;color:darkblue" %></li>
-        <% else %>
-          <li><%= link_to 'Reserved', equipment_reserved_path %></li>
-        <% end %>
-
-        <% if @path == '/equipment/audit' %>
-        <li><%= link_to 'Audit', equipment_audit_path,style:"background-color:#F2F2F2;color:darkblue" %></li>
-        <% else %>
-          <li><%= link_to 'Audit', equipment_audit_path %></li>
-        <% end %>
-
         <% if @path == '/equipment/history' %>
           <li><%= link_to 'History', '#',style:"background-color:#F2F2F2;color:darkblue" %></li>
         <% else %>
           <li><%= link_to 'History', '#' %></li>
         <% end %>
-
         </ul>
     
       <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to image_tag("/images/cart.png",style:'height:18px'), '#' %></li>
+        <li><%= link_to image_tag("/images/notification.png",style:'height:18px'), '#' %></li>
       <% if user_signed_in? %>
         <li><%= link_to 'Log out', destroy_user_session_path, :method => :delete %></li>
       <% else %>
