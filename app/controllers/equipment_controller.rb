@@ -1,13 +1,25 @@
 class EquipmentController < ApplicationController
   before_action :set_equipment, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
 
   # GET /equipment
   # GET /equipment.json
   def index
-    flash.delete(:notice)
-    @equipment = Equipment.all
+      @equipment = Equipment.all
+      if params[:keyword].present?
+        if params[:keyword] =~ /\d/
+          @equipment = @equipment.where(["equip_id LIKE ?","%#{params[:keyword]}%"])
+        else
+          @equipment = @equipment.where(["lower(name) LIKE ?","%#{params[:keyword]}%"])
+        end
+      else
+        @equipment = Equipment.all
+      end
+      @equipment = @equipment.where(["equip_id LIKE ?","%#{params[:id]}%"]) if params[:id].present?
+      @equipment = @equipment.where(["status = ?",params[:status]]) if params[:status].present?
+      @equipment = @equipment.where(["location = ?",params[:location]]) if params[:location].present?
+      @equipment = @equipment.where(["department = ?",params[:department]]) if params[:department].present?
   end
+
 
   # GET /equipment/1
   # GET /equipment/1.json
@@ -63,18 +75,31 @@ class EquipmentController < ApplicationController
     end
   end
 
-  def search
-    @keyword =  'TestString'
+  def addeditdelete
+    @equipment = Equipment.all
+  end
+
+  def advance
+  end
+
+  def history
+  end
+
+  def audit
+  end
+
+  def reserved
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_equipment
-      @equipment = Equipment.find(params[:id])
-    end
+        @equipment = Equipment.find(params[:id])
+     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def equipment_params
-      params.require(:equipment).permit(:equip_id, :name, :status)
-    end
+      params.require(:equipment).permit(:name, :equip_id, :buy_date, :brand, :note, :exp, :status, :serial, :price, :pic_id)
+        end
+
 end

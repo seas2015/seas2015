@@ -1,18 +1,53 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Equip:</strong>
-  <%= @equipment.equip_id %>
-</p>
-
-<p>
   <strong>Name:</strong>
   <%= @equipment.name %>
 </p>
 
 <p>
+  <strong>Equip:</strong>
+  <%= @equipment.equip_id %>
+</p>
+
+<p>
+  <strong>Buy date:</strong>
+  <%= @equipment.buy_date %>
+</p>
+
+<p>
+  <strong>Brand:</strong>
+  <%= @equipment.brand %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @equipment.note %>
+</p>
+
+<p>
+  <strong>Exp:</strong>
+  <%= @equipment.exp %>
+</p>
+
+<p>
   <strong>Status:</strong>
   <%= @equipment.status %>
+</p>
+
+<p>
+  <strong>Serial:</strong>
+  <%= @equipment.serial %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @equipment.price %>
+</p>
+
+<p>
+  <strong>Pic:</strong>
+  <%= @equipment.pic_id %>
 </p>
 
 <%= link_to 'Edit', edit_equipment_path(@equipment) %> |

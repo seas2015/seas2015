@@ -7,7 +7,7 @@
               <tr>
                 <td>
             <div class: "navbar-form" sytle="inline">
-            <%= form_tag equipment_search_path,method: 'get', role: "search" do %>
+            <%= form_tag equipment_index_path,method: 'get' do %>
               <div style="inline-block">
                 <%= text_field_tag 'keyword',"", placeholder: 'Search',style: "width:100%"%>
               </td>
@@ -15,7 +15,7 @@
                 <%= button_tag(type: 'submit', data: { status: 'Available' }) do %>
                   <i class="glyphicon glyphicon-search"></i>
                 <% end %>
-              
+
             <% end %>
           </td>
           <td>
@@ -30,11 +30,11 @@
         </tr>
         </table>
         <hr>
-          <li><%= link_to 'My Item', '#' %></li>
-          <li><%= link_to 'Search History', '#' %></li>
-          <li><%= link_to 'Request Manager', '#' %></li>
-          <li><%= link_to 'User Complaint', '#' %></li>
-          <li><%= link_to 'Edit/Delete', '#' %></li>
+          <li><%= link_to 'My Item', equipment_reserved_path %></li>
+          <li><%= link_to 'Search History', equipment_history_path %></li>
+          <li><%= link_to 'Request Manager', equipment_audit_path %></li>
+          <li><%= link_to 'User Complaint', equipment_report_path %></li>
+          <li><%= link_to 'Add/Edit/Delete', equipment_addeditdelete_path %></li>
           <li><%= link_to 'Audit', '#' %></li>
       </ul>
       <hr>

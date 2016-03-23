@@ -1,11 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  equip_id: MyString
   name: MyString
+  equip_id: MyString
+  buy_date: 2016-03-23
+  brand: MyString
+  note: MyString
+  exp: 2016-03-23
   status: MyString
+  serial: MyString
+  price: 1.5
+  pic_id: MyString
 
 two:
-  equip_id: MyString
   name: MyString
+  equip_id: MyString
+  buy_date: 2016-03-23
+  brand: MyString
+  note: MyString
+  exp: 2016-03-23
   status: MyString
+  serial: MyString
+  price: 1.5
+  pic_id: MyString

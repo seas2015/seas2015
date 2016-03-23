@@ -10,20 +10,44 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :equip_id %><br>
-    <%= f.text_field :equip_id %>
-  </div>
+    <div class="field">
+      <%= f.label 'equipment id' %><br>
+      <%= f.text_field :equip_id %>
+    </div>
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
+  </div>
+
+    <div class="field">
+      <%= f.label :brand %><br>
+      <%= f.text_field :brand %>
+    </div>
+    <div class="field">
+      <%= f.label :serial %><br>
+      <%= f.text_field :serial %>
+    </div>
+  <div class="field">
+    <%= f.label :buy_date %><br>
+    <%= f.date_select :buy_date %>
+  </div>
+  <div class="field">
+    <%= f.label :exp %><br>
+    <%= f.date_select :exp %>
   </div>
   <div class="field">
     <%= f.label :status %><br>
     <%= f.text_field :status %>
   </div>
+  <div class="field">
+    <%= f.label 'Price (Baht)' %><br>
+    <%= f.text_field :price %>
+  </div>
+    <div class="field">
+      <%= f.label :note %><br>
+      <%= f.text_field :note %>
+    </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Add item'%>
   </div>
 <% end %>

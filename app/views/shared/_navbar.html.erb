@@ -27,16 +27,16 @@
           <li><%= link_to 'Home', equipment_index_path %></li>
         <% end %>
 
-        <% if @path == '/equipment/search' %>
-         <li><%= link_to 'Advanced Search', equipment_search_path,style:"background-color:#F2F2F2;color:darkblue" %></li>
+        <% if @path == '/equipment/advance' %>
+         <li><%= link_to 'Advanced Search', equipment_advance_path,style:"background-color:#F2F2F2;color:darkblue" %></li>
         <% else %>
-          <li><%= link_to 'Advanced Search', equipment_search_path %></li>
+          <li><%= link_to 'Advanced Search', equipment_advance_path %></li>
         <% end %>
 
         <% if @path == '/equipment/history' %>
-          <li><%= link_to 'History', '#',style:"background-color:#F2F2F2;color:darkblue" %></li>
+          <li><%= link_to 'History', equipment_history_path,style:"background-color:#F2F2F2;color:darkblue" %></li>
         <% else %>
-          <li><%= link_to 'History', '#' %></li>
+          <li><%= link_to 'History', equipment_history_path %></li>
         <% end %>
         </ul>
     

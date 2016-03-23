@@ -18,7 +18,7 @@ class EquipmentControllerTest < ActionController::TestCase
 
   test "should create equipment" do
     assert_difference('Equipment.count') do
-      post :create, equipment: { equip_id: @equipment.equip_id, name: @equipment.name, status: @equipment.status }
+      post :create, equipment: { brand: @equipment.brand, buy_date: @equipment.buy_date, equip_id: @equipment.equip_id, exp: @equipment.exp, name: @equipment.name, note: @equipment.note, pic_id: @equipment.pic_id, price: @equipment.price, serial: @equipment.serial, status: @equipment.status }
     end
 
     assert_redirected_to equipment_path(assigns(:equipment))
@@ -35,7 +35,7 @@ class EquipmentControllerTest < ActionController::TestCase
   end
 
   test "should update equipment" do
-    patch :update, id: @equipment, equipment: { equip_id: @equipment.equip_id, name: @equipment.name, status: @equipment.status }
+    patch :update, id: @equipment, equipment: { brand: @equipment.brand, buy_date: @equipment.buy_date, equip_id: @equipment.equip_id, exp: @equipment.exp, name: @equipment.name, note: @equipment.note, pic_id: @equipment.pic_id, price: @equipment.price, serial: @equipment.serial, status: @equipment.status }
     assert_redirected_to equipment_path(assigns(:equipment))
   end
 

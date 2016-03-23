@@ -1,1 +1,1 @@
-json.extract! @equipment, :id, :equip_id, :name, :status, :created_at, :updated_at
+json.extract! @equipment, :id, :name, :equip_id, :buy_date, :brand, :note, :exp, :status, :serial, :price, :pic_id, :created_at, :updated_at
