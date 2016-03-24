@@ -1,0 +1,54 @@
+<div class="col-sm-5" style="padding-top:5%">
+  <%= image_tag "/photos/BD7220-641-46110028F.jpg", style:"width:304px;height:228px" %>
+</div><p id="notice"><%= notice %></p>
+<div class="col-sm-7" style="padding-top:3%">
+<% @equipment.each do |e| %>
+    <p>
+      <strong>Name:</strong>
+      <%= e.name %>
+    </p>
+
+    <p>
+      <strong>Equip:</strong>
+      <%= e.equip_id %>
+    </p>
+
+    <p>
+      <strong>Buy date:</strong>
+      <%= e.buy_date %>
+    </p>
+
+    <p>
+      <strong>Brand:</strong>
+      <%= e.brand %>
+    </p>
+
+    <p>
+      <strong>Note:</strong>
+      <%= e.note %>
+    </p>
+
+    <p>
+      <strong>Exp:</strong>
+      <%= e.exp %>
+    </p>
+
+    <p>
+      <strong>Status:</strong>
+      <%= e.status %>
+    </p>
+
+    <p>
+      <strong>Serial:</strong>
+      <%= e.serial %>
+    </p>
+
+    <p>
+      <strong>Price:</strong>
+      <%= e.price %>
+    </p>
+
+    <%= link_to 'Edit', edit_equipment_path(e) %> |
+    <%= link_to 'Back', equipment_addeditdelete_path %>
+<% end %>
+  </div>

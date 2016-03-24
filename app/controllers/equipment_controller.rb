@@ -1,9 +1,13 @@
 class EquipmentController < ApplicationController
   before_action :set_equipment, only: [:show, :edit, :update, :destroy]
-
   # GET /equipment
   # GET /equipment.json
   def index
+    @qr1 = Qrio::Qr.load("public/qrpic/blank.png").qr.text
+    if @qr1  != ''
+      params[:keyword] = @qr1
+    else
+    end
       @equipment = Equipment.all
       if params[:keyword].present?
         if params[:keyword] =~ /\d/
@@ -14,10 +18,11 @@ class EquipmentController < ApplicationController
       else
         @equipment = Equipment.all
       end
-      @equipment = @equipment.where(["equip_id LIKE ?","%#{params[:id]}%"]) if params[:id].present?
+      @equipment = @equipment.where(["equip_id LIKE ?","%#{params[:equip_id]}%"]) if params[:equip_id].present?
       @equipment = @equipment.where(["status = ?",params[:status]]) if params[:status].present?
-      @equipment = @equipment.where(["location = ?",params[:location]]) if params[:location].present?
-      @equipment = @equipment.where(["department = ?",params[:department]]) if params[:department].present?
+      @equipment = @equipment.where(["lower(brand) LIKE ?",params[:brand]]) if params[:brand].present?
+      @equipment = @equipment.where(["buy_date = ?",params[:buy_date]]) if params[:buy_date].present?
+      @equipment = @equipment.where(["exp = ?",params[:exp]]) if params[:exp].present?
   end
 
 
@@ -79,7 +84,10 @@ class EquipmentController < ApplicationController
     @equipment = Equipment.all
   end
 
-  def advance
+  def result
+    @equipment = Equipment.all
+    @equipment = @equipment.where(["equip_id LIKE ?","%#{params[:equip_id]}%"]) if params[:equip_id].present?
+
   end
 
   def history

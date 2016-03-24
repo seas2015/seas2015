@@ -7,15 +7,14 @@
   <thead>
   <tr>
     <th>Name</th>
-    <th>Equip</th>
+    <th>Id</th>
     <th>Buy date</th>
     <th>Brand</th>
     <th>Note</th>
-    <th>Exp</th>
+    <th>Expire date</th>
     <th>Status</th>
     <th>Serial</th>
     <th>Price</th>
-    <th>Pic</th>
     <th colspan="3"></th>
   </tr>
   </thead>
@@ -32,8 +31,7 @@
         <td><%= equipment.status %></td>
         <td><%= equipment.serial %></td>
         <td><%= equipment.price %></td>
-        <td><%= equipment.pic_id %></td>
-        <td><%= link_to 'Show', equipment %></td>
+        <td><%= link_to 'Show', equipment_result_path(:equip_id => equipment.equip_id) %></td>
         <td><%= link_to 'Edit', edit_equipment_path(equipment) %></td>
         <td><%= link_to 'Destroy', equipment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

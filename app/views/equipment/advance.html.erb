@@ -1,17 +1,23 @@
+<h2>Advance Search</h2>
+<%= form_tag equipment_result_path, method: 'get' do %>
+  <div class="field">
+    <%= label_tag 'Item Id'%><br>
+    <%= text_field_tag :equip_id %><br>
+    <%= label_tag 'Name'%><br>
+    <%= text_field_tag :keyword %><br>
+    <%= label_tag 'Brand'%><br>
+    <%= text_field_tag :brand %><br>
+    <%= label_tag 'Status'%><br>
+    <%= text_field_tag :status %><br>
+    <%= label_tag 'Buy date'%><br>
+    <%= date_field_tag :buy_date %><br>
+    <%= label_tag 'Expire date'%><br>
+    <%= date_field_tag :exp %><br>
 
-<form>
-  Item ID:<br>
-  <input type="text" name="itemid"><br>
-  Name:<br>
-  <input type="text" name="name"><br>
-  Type:<br>
-  <input type="text" name="type"><br>
-  Location:<br>
-  <input type="text" name="location"><br>
-  Status:<br>
-  <input type="text" name="status"><br>
-  Capus:<br>
-  <input type="radio" name="campus" value="Rangsit"> Rangsit<br>
-  <input type="radio" name="campus" value="Bangkadi" checked> Bangkadi<br>
-  <br><button type="button">Search</button>
- </form>
+
+    </div>
+
+    <div class="action">
+     <%= submit_tag 'Submit' %>
+    </div>
+<% end %>

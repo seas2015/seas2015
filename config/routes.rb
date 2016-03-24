@@ -1,13 +1,14 @@
 Rails.application.routes.draw do
   resources :equipment do
      collection do
-      get :advance
       get :addeditdelete
       get :audit
       get :history
       get :report
       get :reserved
       get :search
+      get :advance
+      get :result
     end
   end
   devise_for :users
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
   get 'equipment/report'
   get 'equipment/search'
   get 'equipment/addeditdelete'
+  get 'equipment/result'
 
   root 'equipment#index'
   # The priority is based upon order of creation: first created -> highest priority.

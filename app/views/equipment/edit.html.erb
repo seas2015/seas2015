@@ -3,4 +3,4 @@
 <%= render 'form' %>
 
 <%= link_to 'Show', @equipment %> |
-<%= link_to 'Back', equipment_index_path %>
+<%= link_to 'Back', equipment_result_path(:equip_id => @equipment.equip_id) %>
