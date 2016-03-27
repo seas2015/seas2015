@@ -2,10 +2,10 @@ class EquipmentController < ApplicationController
   before_action :set_equipment, only: [:show, :edit, :update, :destroy]
   # GET /equipment
   # GET /equipment.json
-  require 'zbar'
+  #require 'zbar'
   def index
     @qr1 = Qrio::Qr.load("public/qrpic/projector.png").qr.text
-    @qr2 = ZBar::Image.from_jpeg(File.read('public/qrpic/abcd.JPG')).process
+    #@qr2 = ZBar::Image.from_jpeg(File.read('public/qrpic/abcd.JPG')).process
     #@qr3 = ZXing.decode 'http://2d-code.co.uk/images/bbc-logo-in-qr-code.gif'
     if @qr1  != ''
       params[:keyword] = @qr1
