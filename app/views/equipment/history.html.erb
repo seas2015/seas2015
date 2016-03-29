@@ -1,52 +1,21 @@
 
-<table border="1" style="width:100%">
+<table border="1" width="100%" style="font-size:12px;background-color:white;" class="table-hover" >
   <tr>
-    <td>Search Date</td>
-    <td>Item ID</td>
-    <td>Item name</td>
-    <td>Status</td>
-	<td>Cancle</td>
+    <th>Action</th>
+    <th>Item ID</th>
+    <th>User</th>
+    <th>Keyword</th>
   </tr>
-  <tr>
-    <td>15-03-2016</td>
-    <td>7110-616-XXXX</td>
-    <td>LG Nexus</td>
-    <td>Avaliable</td>
-	<td><a href="C:/AppServ/www/seas/cancle.html">Request</a></td>
   </tr>
-  <tr>
-    <td>17-03-2016</td>
-    <td>7110-613-XXXX</td>
-    <td>Chair</td>
-	<td>Requested</td>
-	<td><a href="C:/AppServ/www/seas/cancle.html">Cancle</a></td>
-  </tr>
-       <tr>
-	<td>17-03-2016</td>
-    <td>7110-617-XXXX</td>
-    <td>Sony Projector</td>
-    <td>Avaliable</td>
-	<td><a href="C:/AppServ/www/seas/cancle.html">Request</a></td>
-  </tr>
+
+  <% History.all.each do |h| %>
+  <tbody align="center">
       <tr>
-	  <td>17-03-2016</td>
-    <td>7110-618-XXXX</td>
-    <td>Sony Web Camera</td>
-    <td>Avaliable</td>
-	<td><a href="C:/AppServ/www/seas/cancle.html">Request</a></td>
+	  <td><%= h.action %></td>
+    <td><%= h.equip_id %></td>
+    <td><%= h.user_name %></td>
+    <td><%= h.keyword %></td>
   </tr>
-  <tr>
-  <td>18-03-2016</td>
-    <td>7110-614-XXXX</td>
-    <td>Table</td>
-    <td>Requested</td>
-	<td><a href="C:/AppServ/www/seas/cancle.html">Cancle</a></td>
-  </tr>
-  <tr>
-  <td>19-03-2016</td>
-    <td>7110-615-XXXX</td>
-    <td>iMac</td>
-    <td>Received</td>
-	<td></td>
-  </tr>
+</tbody>
+  <% end %>
 	</table>
