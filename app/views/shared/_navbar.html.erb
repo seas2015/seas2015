@@ -44,6 +44,7 @@
         <li><%= link_to image_tag("/images/cart.png",style:'height:18px'), '#' %></li>
         <li><%= link_to image_tag("/images/notification.png",style:'height:18px'), '#' %></li>
       <% if user_signed_in? %>
+               <li><a>Welcome, <%= current_user.name %>(<%= current_user.user_type %>)</a></li>
         <li><%= link_to 'Log out', destroy_user_session_path, :method => :delete %></li>
       <% else %>
 

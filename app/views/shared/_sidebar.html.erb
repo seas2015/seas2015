@@ -7,7 +7,7 @@
               <tr>
                 <td>
             <div class: "navbar-form" sytle="inline">
-            <%= form_tag equipment_index_path,method: 'get' do %>
+            <%= form_tag equipment_result_path,method: 'post' do %>
               <div style="inline-block">
                 <%= text_field_tag 'keyword',"", placeholder: 'Search',style: "width:100%"%>
               </td>
@@ -19,7 +19,7 @@
             <% end %>
           </td>
           <td>
-              <%= form_tag equipment_index_path, method: 'get' do %>
+              <%= form_tag equipment_index_path do %>
                <%= button_tag(type: 'submit') do %>
                   <i class="glyphicon glyphicon-qrcode"></i>
                 <% end %>
@@ -30,7 +30,7 @@
         </tr>
         </table>
         <hr>
-          <li><%= link_to 'My Item', equipment_reserved_path %></li>
+          <li><%= link_to 'My Item', equipment_myitem_path %></li>
           <li><%= link_to 'Search History', equipment_history_path %></li>
           <li><%= link_to 'Request Manager', equipment_audit_path %></li>
           <li><%= link_to 'User Complaint', equipment_report_path %></li>

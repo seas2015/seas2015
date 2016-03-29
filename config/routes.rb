@@ -1,26 +1,36 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { registrations: "registrations/registrations" }
   resources :equipment do
      collection do
       get :addeditdelete
       get :audit
       get :history
       get :report
-      get :reserved
+      get :myitem
       get :search
       get :advance
-      get :result
+      post :result
+      get :doreserve
+      get :item
+      get :cancel
+      get :approve
+      get :return
     end
   end
-  devise_for :users
 
+  get 'equipment/return'
+  get 'equipment/cancel'
+  get 'equipment/item'
   get 'equipment/advance'
-  get 'equipment/reserved'
+  get 'equipment/myitem'
   get 'equipment/history'
   get 'equipment/audit'
   get 'equipment/report'
   get 'equipment/search'
   get 'equipment/addeditdelete'
-  get 'equipment/result'
+  post 'equipment/result'
+  get 'equipment/doreserve'
+  get 'equipment/approve'
 
   root 'equipment#index'
   # The priority is based upon order of creation: first created -> highest priority.

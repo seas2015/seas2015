@@ -1,0 +1,25 @@
+<h2>Reserved Item</h2>
+<table border="1" width="100%" style="font-size:12px;background-color:white;" class="table-hover" >
+	<tr>
+		<th>Item ID</th>
+		<th>Item name</th>
+		<th>Request Date</th>
+		<th>Process</th>
+		<th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+	</tr>
+<tbody align="center">
+	<% @equipment.each do |e| %>
+	<tr>
+		<td><%= e.equip_id %></td>
+		<td><%= e.name %></td>
+		<td>N/A</td>
+		<td><%= e.process %></td>
+		<% if e.process != 'Complete' %>
+			<td><%= link_to 'Cancel', equipment_cancel_path(:equip_id => e.equip_id) %></td>
+		<% else %>
+			<td></td>
+		<% end %>
+	</tr>
+	<% end %>
+</tbody>
+</table>

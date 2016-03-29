@@ -11,6 +11,7 @@ class CreateEquipment < ActiveRecord::Migration
       t.string :serial
       t.float :price
       t.string :pic_id
+      t.string :ownby
 
       t.timestamps null: false
     end

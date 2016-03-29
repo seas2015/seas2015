@@ -3,7 +3,7 @@
 
 <h1>Listing Equipment</h1>
 
-<table border="1" width="100%" style="font-size:12px">
+<table border="1" width="100%" style="font-size:12px;background-color:white;" class="table-hover">
   <thead>
   <tr>
     <th>Name</th>
@@ -31,9 +31,9 @@
         <td><%= equipment.status %></td>
         <td><%= equipment.serial %></td>
         <td><%= equipment.price %></td>
-        <td><%= link_to 'Show', equipment_result_path(:equip_id => equipment.equip_id) %></td>
+        <td><%= link_to 'Show', equipment_item_path(:equip_id => equipment.equip_id) %></td>
         <td><%= link_to 'Edit', edit_equipment_path(equipment) %></td>
-        <td><%= link_to 'Destroy', equipment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', equipment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
   <% end %>
   </tbody>

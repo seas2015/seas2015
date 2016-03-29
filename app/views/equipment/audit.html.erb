@@ -1,39 +1,45 @@
-<h1>Request Item<h1>
-<table border="1" style="width:100%">
+<h1>Requested Item<h1>
+<table border="1" width="100%" style="font-size:12px;background-color:white;" class="table-hover">
   <tr>
-    <td>Item ID</td>
-    <td>Item name</td>
-	<td>Request Date</td>
-    <td>Approve</td>
+    <th>Item ID</th>
+    <th>Item name</th>
+	<th>Request Date</th>
+    <th></th>
   </tr>
-  <tr>
-    <td>7110-613-XXXX</td>
-    <td>Chair</td>
-	<td>17-03-2016</td>
-	<td><a href="C:/AppServ/www/seas/cancle.html">Approve</a></td>
+
+  <% @equipment.each do |e| %>
+  <tr align="center">
+    <td><%= e.equip_id %></td>
+    <td><%= e.name %></td>
+	<td>N/A</td>
+	<td><%= link_to 'Approve', equipment_approve_path(:equip_id => e.equip_id) %></td>
   </tr>
-  <tr>
-    <td>7110-614-XXXX</td>
-    <td>Table</td>
-	<td>18-03-2016</td>
-	<td><a href="C:/AppServ/www/seas/cancle.html">Approve</a></td>
-  </tr>
+  <% end %>
   </table>
+  
+
   <br>
-  <h1>Receive Item<h1>
-  <table border="1" style="width:100%">
+  <h1>Received Item<h1>
+  <table border="1" width="100%" style="font-size:12px;background-color:white;" class="table-hover">
   <tr>
-    <td>Item ID</td>
-    <td>Item name</td>
-	<td>Request Date</td>
-    <td>Approve Date</td>
-	<td>Received Date</td>
+    <th>Item ID</th>
+    <th>Item name</th>
+	<th>Request Date</th>
+    <th>Approve Date</th>
+	<th>Received Date</th>
+  <th>Own by</th>
+  <th></th>
   </tr>
-  <tr>
-    <td>7110-615-XXXX</td>
-    <td>iMac</td>
-	<td>19-03-2016</td>
-    <td>19-03-2016</td>
-	<td>20-03-2016</td>
+
+  <% @equipment_c.each do |e| %>
+  <tr align="center">
+    <td><%= e.equip_id %></td>
+    <td><%= e.name %></td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td><%= e.ownby %></td>
+    <td><%= link_to 'Return', equipment_return_path(:equip_id => e.equip_id) %></td>
   </tr>
+  <% end %>
 </table>

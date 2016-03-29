@@ -1,13 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Equipment</h1>
-Keyword = <%= params[:keyword] %><br>
-QR = <%= @qr1 %>
-QRZBar = <%= @qr2 %>
 
-<table border="1" width="100%" style="font-size:12px">
+<table border="1" width="100%" style="font-size:12px;background-color:white;" class="table-hover" >
   <thead>
     <tr>
+      <th></th>
       <th>Name</th>
       <th>Id</th>
       <th>Buy date</th>
@@ -17,21 +15,32 @@ QRZBar = <%= @qr2 %>
       <th>Status</th>
       <th>Serial</th>
       <th>Price (Baht)</th>
+      <% if user_signed_in? %>
+          <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+        <% else %>
+          <td></td>
+      <% end %>
     </tr>
   </thead>
 
-  <tbody>
-    <% @equipment.each do |equipment| %>
+  <tbody align="center">
+    <% @equipment.each do |e| %>
       <tr>
-        <td><%= equipment.name %></td>
-        <td><%= equipment.equip_id %></td>
-        <td><%= equipment.buy_date %></td>
-        <td><%= equipment.brand %></td>
-        <td><%= equipment.note %></td>
-        <td><%= equipment.exp %></td>
-        <td><%= equipment.status %></td>
-        <td><%= equipment.serial %></td>
-        <td><%= equipment.price %></td>
+        <td>&nbsp<%= check_box_tag 'seleced'%></td>
+        <td><%= e.name %></td>
+        <td><%= e.equip_id %></td>
+        <td><%= e.buy_date %></td>
+        <td><%= e.brand %></td>
+        <td><%= e.note %></td>
+        <td><%= e.exp %></td>
+        <td><%= e.status %></td>
+        <td><%= e.serial %></td>
+        <td><%= e.price %></td>
+        <% if user_signed_in? && e.status != 'Reserved' && e.status != 'Pending'%>
+          <td><%= link_to 'Request' , equipment_doreserve_path(:equip_id => e.equip_id) %></td>
+        <% else %>
+          <td></td>
+        <% end %>
 
     <% end %>
   </tbody>
