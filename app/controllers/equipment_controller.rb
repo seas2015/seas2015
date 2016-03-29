@@ -108,8 +108,8 @@ class EquipmentController < ApplicationController
   end
 
   def item
-    @equipment = Equipment.all
-    @equipment = @equipment.where(["equip_id LIKE ?","%#{params[:equip_id]}%"]) if params[:equip_id].present?
+    @equipment = Equipment.find_by(equip_id: params[:equip_id])
+    @path = "/photos/" + "#{@equipment.equip_id}" + ".jpg"
   end
 
   def history
@@ -158,6 +158,16 @@ class EquipmentController < ApplicationController
   def approve
     @equipment = Equipment.find_by(equip_id: params[:equip_id])
     @equipment.update(process: 'Complete',status: 'Reserved')
+    redirect_to :back
+  end
+
+   def upload
+    @id = params[:equip_id]
+    @name = "#{@id}" + ".jpg" 
+    directory = "public/photos/"
+    path = File.join(directory, @name)
+    File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
+    flash[:notice] = "File uploaded"
     redirect_to :back
   end
 

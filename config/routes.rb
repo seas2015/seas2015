@@ -15,9 +15,10 @@ Rails.application.routes.draw do
       get :cancel
       get :approve
       get :return
+      post :upload
     end
   end
-
+  post 'equipment/upload'
   get 'equipment/return'
   get 'equipment/cancel'
   get 'equipment/item'
