@@ -1,6 +1,7 @@
 class EquipmentController < ApplicationController
   before_action :set_equipment, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, :except => [:show, :index,:advance,:history]
+  helper :headshot
   # GET /equipment
   # GET /equipment.json
   #require 'zbar'
@@ -78,7 +79,9 @@ class EquipmentController < ApplicationController
   end
 
   def result
+
     @qr1 = Qrio::Qr.load("public/qrpic/blank.png").qr.text
+    #@qr1 = ZBar::Image.from_jpeg(File.read('public/qrpic/projector.png')).process
     #@qr2 = ZBar::Image.from_jpeg(File.read('public/qrpic/abcd.JPG')).process
     #@qr3 = ZXing.decode 'http://2d-code.co.uk/images/bbc-logo-in-qr-code.gif'
     @history = History.all
@@ -100,11 +103,34 @@ class EquipmentController < ApplicationController
     else
       @equipment = Equipment.all
     end
+    @equipment = @equipment.where(["campus LIKE ?","%#{params[:campus]}%"]) if params[:campus].present?
     @equipment = @equipment.where(["equip_id LIKE ?","%#{params[:equip_id]}%"]) if params[:equip_id].present?
     @equipment = @equipment.where(["status = ?",params[:status]]) if params[:status].present?
     @equipment = @equipment.where(["lower(brand) LIKE ?",params[:brand]]) if params[:brand].present?
     @equipment = @equipment.where(["buy_date = ?",params[:buy_date]]) if params[:buy_date].present?
     @equipment = @equipment.where(["exp = ?",params[:exp]]) if params[:exp].present?
+  end
+
+  def reported_detail
+    @item = Report.find_by(id: params[:id])
+    @image = true
+    @img_path = "/report_pic/" + "#{@item.pic_id}" + ".jpg"
+  end
+
+  def checked
+    Report.find_by(id: params[:id]).update(checked_status: 'Checked')
+    redirect_to :back
+  end
+
+  def unchecked
+    Report.find_by(id: params[:id]).update(checked_status: 'Not check')
+    redirect_to :back
+  end
+
+  def check_item
+    Report.find_by(id: params[:id]).update(staff_note: params[:staff_note],
+      action_needed: params[:action_needed])
+    redirect_to equipment_reported_item_path
   end
 
   def item
@@ -171,6 +197,55 @@ class EquipmentController < ApplicationController
     redirect_to :back
   end
 
+  def upload_report
+    #@img_path = "/report_pic/" + "#{params[:equip_id]}" + ".jpg"
+    @id = params[:equip_id]
+    @name = "#{@id}" + ".jpg" 
+    directory = "public/report_pic/"
+    path = File.join(directory, @name)
+    File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
+
+    redirect_to :back
+  end
+
+  def report  
+  end
+  
+  def doreport
+    @id = params[:equip_id]
+    if @id != ''
+      @name = "#{@id}" + "-" + "#{Time.now.to_formatted_s(:number)}" + ".jpg" 
+      @pic_id = "#{@id}" + "-" + "#{Time.now.to_formatted_s(:number)}"
+      directory = "public/report_pic/"
+      path = File.join(directory, @name)
+      File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
+    else
+  end
+
+  def notification
+  end
+
+  def cart
+  end
+
+    Report.create(title: params[:title],
+                            equip_id: params[:equip_id],
+                            equip_type: params[:type],
+                            note: params[:note],
+                            user_name: current_user.name,
+                            pic_id: @pic_id)
+
+    History.create(action: 'report_item',
+                 user_name: current_user.name,
+                 equip_id: params[:equip_id],
+                 detail: params[:note])
+    redirect_to :back
+  end
+
+  def reported_item
+    @report = Report.all
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_equipment
@@ -182,4 +257,4 @@ class EquipmentController < ApplicationController
       params.require(:equipment).permit(:process,:ownby,:status,:name, :equip_id, :buy_date, :brand, :note, :exp, :status, :serial, :price, :pic_id)
         end
 
-end
+  end

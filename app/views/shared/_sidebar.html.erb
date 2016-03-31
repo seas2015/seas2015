@@ -2,7 +2,7 @@
       <div class="nav-collapse" >
         <ul class="nav nav-pills nav-stacked sidebar-menu">
           <li>
-          <br>
+          <hr>
             <table >
               <tr>
                 <td>
@@ -32,16 +32,37 @@
         <hr>
           <li><%= link_to 'My Item', equipment_myitem_path %></li><hr>
           <li><%= link_to 'Search History', equipment_history_path %></li><hr>
-          <li><%= link_to 'Request Manager', equipment_audit_path %></li><hr>
-          <li><%= link_to 'User Complaint', equipment_report_path %></li><hr>
-          <li><%= link_to 'Add/Edit/Delete', equipment_addeditdelete_path %></li>
+          <% if user_signed_in? %>
+            <% if current_user.user_type == 'admin' %>
+              <li><%= link_to 'Request Manager', equipment_audit_path %></li><hr>
+            <% else %>
+            <% end %>
+          <% end %>
+          <li><%= link_to 'Instant Report !', equipment_report_path %></li>
+          <% if user_signed_in? %>
+            <% if current_user.user_type == 'admin' %>
+            <hr>
+              <li><%= link_to 'Add/Edit/Delete', equipment_addeditdelete_path %></li><hr>
+              <li><%= link_to 'Reported Item', equipment_reported_item_path %></li>
+            <% else %>
+            <% end %>
+          <% end %>
       </ul>
       <hr>
+
+      <div  style="border-radius:0px; color:grey">
+            <marquee behavior="scroll" direction="up" style="height:150px;" scrollamount="1">Search History :<br>
+            <% History.order(:created_at).uniq(:keyword).each do |h| %>
+              <%= link_to h.keyword, equipment_result_path(keyword: h.keyword),method: 'post' %><br>
+            <% end %>
+            </marquee>
+         </div><br>
+<hr>
        <font size='1.5em' style='color:grey' >Language 
         <%= link_to 'English', '#' %> /
         <%= link_to 'Thai', '#' %>
         </font>
       <br><br>
-      <div align="center"><font size='1.5em' style='color:grey' >Version 0.0.4 beta</font></div>
+      <div align="center"><font size='1.5em' style='color:grey' >Version 0.1.0 beta</font></div>
       </div>
 </div>

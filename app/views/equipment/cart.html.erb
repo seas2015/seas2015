@@ -1,0 +1,32 @@
+<h3>Selected Items</h3>
+<div align="right">
+<%= select_tag "group_action", options_for_select(["--Select action--","Request all","Remove from cart","Export to PDF","Export to excel","Add to cart"]) %>
+</div><br>
+<table border="1" width="100%" style="font-size:12px;background-color:white;" class="table-hover">
+  <thead>
+  <tr>
+    <th></th>
+    <th>Name</th>
+    <th>Equipment Id</th>
+    <th>Buy date</th>
+    <th>Expire date</th>
+    <th>Brand</th>
+    <th>Status</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <%  %>
+      <tr>
+        <td>&nbsp<%= check_box_tag 'selected'%></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= link_to 'Remove', '#' %></td>
+      </tr>
+  </tbody>
+</table>

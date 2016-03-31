@@ -1,59 +1,44 @@
-<div class="col-sm-5" style="padding-top:5%">
-  <%= image_tag @path, style:"width:304px;height:228px" %>
+<div class="col-sm-6" style="padding-top:5%;">
+  <%= image_tag @path, style:"width:380px;height:285px;border:1px solid black;" %>
 </div><p id="notice"><%= notice %></p>
-<div class="col-sm-7" style="padding-top:3%">
-      <p>
-        <strong>Name:</strong>
-        <%= @equipment.name %>
-      </p>
+<div class="col-sm-6" style="padding-top:8%">
+  <table border="0px" width="350px">
+    <tr><td><strong>Name:</strong></td>
+        <td><%= @equipment.name %></td>
+    </tr>
 
-      <p>
-        <strong>Equip:</strong>
-        <%= @equipment.equip_id %>
-      </p>
+    <tr><td><strong>Equip:</strong></td>
+        <td><%= @equipment.equip_id %></td>
 
-      <p>
-        <strong>Buy date:</strong>
-        <%= @equipment.buy_date %>
-      </p>
+    <tr><td><strong>Buy date:</strong></td>
+        <td><%= @equipment.buy_date %></td>
 
-      <p>
-        <strong>Brand:</strong>
-        <%= @equipment.brand %>
-      </p>
-
-      <p>
-        <strong>Note:</strong>
-        <%= @equipment.note %>
-      </p>
-
-      <p>
-        <strong>Exp:</strong>
-        <%= @equipment.exp %>
-      </p>
-
-      <p>
-        <strong>Status:</strong>
-        <%= @equipment.status %>
-      </p>
-
-      <p>
-        <strong>Serial:</strong>
-        <%= @equipment.serial %>
-      </p>
-
-      <p>
-        <strong>Price:</strong>
-        <%= @equipment.price %>
-      </p>
-
+    <tr><td><strong>Brand:</strong></td>
+        <td><%= @equipment.brand %></td>
+      
+    <tr><td><strong>Note:</strong></td>
+        <td><%= @equipment.note %></td>
+      
+    <tr><td><strong>Exp:</strong></td>
+        <td><%= @equipment.exp %></td>
+      
+    <tr><td><strong>Status:</strong></td>
+        <td><%= @equipment.status %></td>
+ 
+    <tr><td><strong>Serial:</strong></td>
+        <td><%= @equipment.serial %></td>
+   
+    <tr><td><strong>Price:</strong></td>
+        <td><%= @equipment.price %>
+        <strong>Baht</strong></td>
+     </table>
+      <br>
       <%= link_to 'Edit', edit_equipment_path(@equipment) %> |
       <%= link_to 'Back', equipment_addeditdelete_path %>
-      <br>
-      <%= form_tag equipment_upload_path(:equip_id => params[:equip_id]) , { :multipart => true } do %>
-          <%=  file_field_tag 'upload[file]' %>
-          <%= button_tag(type: 'submit') do %>
-            Submit
-      <% end %>
-      <% end %>
+     
+
+      <!--<%= headshot_default_config(Rails.application.config.session_options[:key], headshot_capture_path) %>
+      <%= headshot_camera %>
+      <br/><br/>
+      <%= headshot_snap_button('Shoot') %>-->
 </div>

@@ -65,13 +65,15 @@ body{
   <div class="navbar-s">
    <%= render 'shared/navbar' %>
   </div>
-  <div style="padding-left:0%;width:20%;float:left">
+  <div style="padding-left:0%;width:19%;float:left">
     <%= render 'shared/sidebar' %>
   </div>
 
-  <div style="padding-right:2%;width:80%;float:right ">
-    <div>
-      <%= yield %>
+  <div style="padding:1%;width:81%;float:right; ">
+    <div style="height:520px;border:1px solid lightgrey">
+          <div style="padding-left:2%;padding-right:2%;">
+            <%= yield %>
+          <div>
     </div>
   </div>
 

@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Equipment</h1>
-
+<h3>Listing Equipment</h3>
+<div align="right">
+<%= select_tag "group_action", options_for_select(["--Select action--","Request all","Export to PDF","Export to excel","Add to cart"]) %>
+</div><br>
 <table border="1" width="100%" style="font-size:12px;background-color:white;" class="table-hover" >
   <thead>
     <tr>
@@ -12,9 +14,10 @@
       <th>Brand</th>
       <th>Note</th>
       <th>Exp</th>
-      <th>Status</th>
       <th>Serial</th>
-      <th>Price (Baht)</th>
+      <th>Campus</th>
+      <th>Status</th>
+      <th></th>
       <% if user_signed_in? %>
           <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
         <% else %>
@@ -24,7 +27,7 @@
   </thead>
 
   <tbody align="center">
-    <% @equipment.each do |e| %>
+    <% @equipment.order(:name).each do |e| %>
       <tr>
         <td>&nbsp<%= check_box_tag 'seleced'%></td>
         <td><%= e.name %></td>
@@ -33,9 +36,10 @@
         <td><%= e.brand %></td>
         <td><%= e.note %></td>
         <td><%= e.exp %></td>
-        <td><%= e.status %></td>
         <td><%= e.serial %></td>
-        <td><%= e.price %></td>
+        <td><%= e.campus %></td>
+        <td><%= e.status %></td>
+        <td><%= link_to 'Detail', equipment_item_path(:equip_id => e.equip_id) %></td>
         <% if user_signed_in? && e.status != 'Reserved' && e.status != 'Pending'%>
           <td><%= link_to 'Request' , equipment_doreserve_path(:equip_id => e.equip_id) %></td>
         <% else %>
@@ -45,6 +49,8 @@
     <% end %>
   </tbody>
 </table>
-
 <br>
+<div align="right">
+  <%= button_to 'Add to cart' , '#'%>
+</div>
 

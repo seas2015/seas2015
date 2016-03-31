@@ -1,7 +1,40 @@
-<form>
-  Take a Photo:<br>
-  <img src="111.png" alt="deskop" style="width:100px;height:100px;">
-  <br>Description:<br>
-  <input type="text" name="roomno"><br>
-  <br><button type="button" a href="C:/AppServ/www/seas/home.html">Search</button>
-</form>
+<div class="col-sm-6" style="padding-top:2%">
+	<div style="border:1px solid lightgrey;height:320px;" align='center'>
+		<% if @image != '' %>
+			<font style="color:lightgrey;line-height:300px;font-size:28px;">Upload image</font>
+		<% else %>
+			<%= image_tag @img_path, style:"height:300px" %>
+		<% end %>
+	</div><br>
+	  <%= form_tag equipment_doreport_path(equip_id: params[:equip_id]),{ :multipart => true } do %>
+          <%=  file_field_tag 'upload[file]' %>
+</div>
+<div class="col-sm-6" style="padding-left:3%;padding-top:2%">
+	<div class="form">
+		<%= label_tag 'Title' %><br>
+		<%= text_field_tag 'title' %>
+	</div>
+	<div class="form">
+		<%= label_tag 'Equipment ID' %><br>
+		<%= text_field_tag 'equip_id' %>
+	</div>
+	<div class="form">
+		<strong>Action:</strong><br><br>
+		<strong style="border:1px solid lightgrey;padding:4%">
+            <%= radio_button_tag 'equip_type', 'Broken' ,checked: true%>
+            <%= label_tag 'Broken'%>
+            <%= radio_button_tag 'equip_type', 'Lost' %>
+            <%= label_tag 'Lost'%>
+            <%= radio_button_tag 'equip_type', 'Other' %>
+            <%= label_tag 'Other'%>
+          </strong><br><br>
+	</div>
+    <div class="form">
+		<%= label_tag 'Note to staff :' %><br>
+		<%= text_area_tag 'note' , nil, rows: 5, cols: 50 %>
+	</div><br>
+	<div class="action">
+     <%= submit_tag 'Submit', :onclick => "alert('Submition successful!')" %>
+    </div>
+<% end %>
+</div>

@@ -1,6 +1,11 @@
-<h1>Editing Equipment</h1>
+<h3>Editing Equipment</h3>
 
 <%= render 'form' %>
-
+ <%= form_tag equipment_upload_path(:equip_id => params[:equip_id]) , { :multipart => true } do %>
+          <%=  file_field_tag 'upload[file]' %>
+          <%= button_tag(type: 'submit') do %>
+            Submit
+          <% end %>
+      <% end %>
 <%= link_to 'Show', @equipment %> |
-<%= link_to 'Back', equipment_addeditdelete_path %>
+<%= link_to 'Back', equipment_item_path(equip_id: @equipment.equip_id) %>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post "headshot/capture" => 'headshot#capture', :as => :headshot_capture
   devise_for :users, controllers: { registrations: "registrations/registrations" }
   resources :equipment do
      collection do
@@ -16,8 +17,28 @@ Rails.application.routes.draw do
       get :approve
       get :return
       post :upload
+      post :report
+      post :upload_report
+      post :doreport
+      get :reported_item
+      get :reported_detail
+      post :checked
+      post :unchecked
+      post :check_item
+      get :notification
+      get :cart
     end
   end
+  get 'equipment/cart' 
+  get 'equipment/notification'
+  post 'equipment/check_item'
+  post 'equipment/unchecked'
+  post 'equipment/checked'
+  get 'equipment/reported_detail'
+  get 'equipment/reported_item'
+  post 'equipment/doreport'
+  post 'equipment/upload_report'
+  post 'equipment/report'
   post 'equipment/upload'
   get 'equipment/return'
   get 'equipment/cancel'

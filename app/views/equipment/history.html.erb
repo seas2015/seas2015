@@ -1,4 +1,4 @@
-
+<h3>Search history</h3>
 <table border="1" width="100%" style="font-size:12px;background-color:white;" class="table-hover" >
   <tr>
     <th>Action</th>
@@ -8,7 +8,7 @@
   </tr>
   </tr>
 
-  <% History.all.each do |h| %>
+  <% History.order(:created_at).where(user_name: current_user.name).each do |h| %>
   <tbody align="center">
       <tr>
 	  <td><%= h.action %></td>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329165911) do
+ActiveRecord::Schema.define(version: 20160331203418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,20 @@ ActiveRecord::Schema.define(version: 20160329165911) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "process"
+    t.string   "campus"
+    t.string   "location"
+  end
+
+  create_table "headshot_photos", force: :cascade do |t|
+    t.string   "description"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.integer  "capturable_id"
+    t.string   "capturable_type"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "histories", force: :cascade do |t|
@@ -43,6 +57,21 @@ ActiveRecord::Schema.define(version: 20160329165911) do
     t.string   "equip_id"
     t.string   "detail"
     t.string   "keyword"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.string   "title"
+    t.string   "note"
+    t.string   "user_name"
+    t.string   "user_id"
+    t.string   "equip_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "equip_type"
+    t.string   "checked_status"
+    t.string   "staff_note"
+    t.string   "pic_id"
+    t.string   "action_needed"
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,0 +1,71 @@
+<div class="col-sm-6" style="padding-top:5%;">
+	<div style="border:1px solid lightgrey;height:300px;" align='center'>
+		<% if @image == false %>
+			<font style="color:lightgrey;line-height:300px;font-size:28px;">No Image</font>
+		<% else %>
+			<%= image_tag @img_path, style:"height:300px;border:2px solid black" %>
+		<% end %>
+	</div><br>
+</div>
+<div class="col-sm-6" style="padding-left:3%;padding-top:2%;">
+	<p>
+        <strong>Title:</strong>
+        <%= @item.title %>
+      </p>
+
+      <p>
+        <strong>Item ID:</strong>
+        <%= @item.equip_id %>
+      </p>
+
+      <p>
+        <strong>Reported by:</strong>
+        <%= @item.user_name %>
+      </p>
+
+      <p>
+        <strong>Status:</strong>
+        <%= @item.equip_type %>
+      </p>
+
+      <p>
+        <strong>Report at:</strong>
+        <%= @item.created_at %>
+      </p>
+
+      <p>
+        <strong>Note:</strong>
+        <%= @item.note %>
+      </p>
+      	<p>
+      		<!--<strong>Verifiy Status:</strong>
+        		<%= @item.checked_status %>
+        		<%= @status %>
+
+           <strong style="border:1px solid lightgrey;padding:3%">
+          <font style="font-size:18px">
+        		<strong>&nbsp<%= link_to '✓', equipment_checked_path(id: @item.id),method: 'post' %>&nbsp</strong>&nbsp
+        		<strong>&nbsp<%= link_to 'X', equipment_unchecked_path(id: @item.id),method: 'post' %>&nbsp</strong>
+          </font>
+          </strong>-->
+      <%= form_tag equipment_check_item_path(id: @item.id) do %>
+        <p>
+            <strong>Action:</strong><br><br>
+          <strong style="border:1px solid lightgrey;padding:4%">
+            <%= radio_button_tag 'action_needed', 'normal' ,checked: true%>
+            <%= label_tag 'Normal'%>
+            <%= radio_button_tag 'action_needed', 'need_repair' %>
+            <%= label_tag 'Need repair'%>
+            <%= radio_button_tag 'action_needed', 'need_renew' %>
+            <%= label_tag 'Need renew'%>
+          </strong>
+        </p>
+      		<div class="field" %>
+      			<%= label_tag 'Note' %><br>
+      			<%= text_area_tag 'staff_note', nil, rows: 3, cols: 45 %>
+      		</div>
+      		<div class="action">
+     			<%= submit_tag 'Save', :onclick => "alert('Saved!')" %>
+   			 </div>
+      	<% end %>
+  </div>

@@ -1,0 +1,47 @@
+
+<style>
+</style>
+<p id="notice"><%= notice %></p>
+<h3>Reported Item</h3>
+<div align="right">
+<%= select_tag "group_action", options_for_select(["--Select action--","Export to PDF","Export to excel","Add to cart"]) %>
+</div><br>
+<table border="1" width="100%" style="font-size:12px;background-color:white;" class="table-hover">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Equipment ID</th>
+    <th>Type</th>
+    <th>Applicant</th>
+    <th>Note</th>
+    <th>Report Time</th>
+    <th></th>
+    <th>Status</th>
+    <th>Action</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody align="center">
+  <% @report.order(:created_at).each do |r| %>
+      <tr>
+        <td><%= r.title %></td>
+        <td><%= r.equip_id %></td>
+        <td><%= r.equip_type %></td>
+        <td><%= r.user_name %></td>
+        <td><%= r.note %></td>
+        <td><%= r.created_at %></td>
+        <td><%= link_to 'View', equipment_reported_detail_path(id: r.id) %></td>
+        <td><%= r.checked_status %></td>
+        <td><%= r.action_needed %></td>
+        <td>&nbsp<%= link_to '✓', equipment_checked_path(id: r.id),method: 'post' %>&nbsp</td>
+        <td>&nbsp<%= link_to 'X', equipment_unchecked_path(id: r.id),method: 'post' %>&nbsp</td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<br>
+<div align="right">
+  <%= button_to 'Add to cart' , '#'%>
+</div>
