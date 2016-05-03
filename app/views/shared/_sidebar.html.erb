@@ -11,17 +11,16 @@
   <div class="sidebar-nav navbar-collapse">
     <ul class="nav" id="side-menu">
       <li class="sidebar-search">
-
         <div class="input-group">
            <%= form_tag equipment_result_path,method: 'post' do %>
-              <div class="hidden-field">
-                <%= text_field_tag 'keyword',"", placeholder: 'Search...',class:'form-control', autofocus: true %>
-              </div>
                <span class="input-group-btn">
-                <%= text_field_tag 'keyword',"", placeholder: 'Search...',class:'form-control', autofocus: true %>
+                <%= text_field_tag 'keyword',"", placeholder: 'Search...',class:'form-control'%>
                 <%= button_to equipment_result_path, class:"btn btn-default" do %>
                   <i class="fa fa-search"></i>
                 <% end %>
+                 <div class="hidden-field">
+                <%= text_field_tag 'keyword_2',"", placeholder: 'Search...',class:'form-control', autofocus: true %>
+              </div>
                 </span>
             <% end %>
         </div>

@@ -5,7 +5,7 @@ class EquipmentController < ApplicationController
   # GET /equipment
   # GET /equipment.json
   #require 'zbar'
-  def index
+  def home
     @equipment = Equipment.all
     if user_signed_in?
         session[:sign_in] = true
@@ -83,8 +83,6 @@ class EquipmentController < ApplicationController
   end
 
   def result
-
-
     #if params[:qr_pic] != ''
       #@qrcodepath = "'public/headshots/" + "#{params[:qr_pic]}" + ".png'"
       #params[:qr_id] == Qrio::Qr.load(@qrcodepath).qr.text
@@ -92,10 +90,8 @@ class EquipmentController < ApplicationController
     #end
     #@qr1 = Qrio::Qr.load("public/qrpic/1.png").qr.text
     #params[:qr_id] = @qr1
-    @qr_input = 'no'
-    #@qr1 = ZBar::Image.from_jpeg(File.read('public/qrpic/projector.png')).process
+    #@qr_input = 'no'
     #@qr2 = ZBar::Image.from_jpeg(File.read('public/qrpic/abcd.JPG')).process
-    #@qr3 = ZXing.decode 'http://2d-code.co.uk/images/bbc-logo-in-qr-code.gif'
     if user_signed_in?
       @current_user = current_user.name
     else 
@@ -106,16 +102,22 @@ class EquipmentController < ApplicationController
                  user_name: @current_user,
                  keyword: params[:keyword])
 
-  if @qr_input  == 'yes' #@qr1 != ''
-      params[:keyword] = @qr1
-    else
-    end
+  #if @qr_input  == 'yes' #@qr1 != ''
+  #   params[:keyword] = @qr1
+  # else
+  # end
     @equipment = Equipment.all
     if params[:keyword].present?
       if params[:keyword] =~ /\d/
         @equipment = @equipment.where(["equip_id LIKE ?","%#{params[:keyword]}%"])
       else
         @equipment = @equipment.where(["lower(name) LIKE ?","%#{params[:keyword]}%"])
+      end
+    elsif params[:keyword_2].present?
+      if params[:keyword_2] =~ /\d/
+        @equipment = @equipment.where(["equip_id LIKE ?","%#{params[:keyword_2]}%"])
+      else
+        @equipment = @equipment.where(["lower(name) LIKE ?","%#{params[:keyword_2]}%"])
       end
     else
       @equipment = Equipment.all
@@ -241,12 +243,14 @@ class EquipmentController < ApplicationController
       path = File.join(directory, @name)
       File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
     else
+    end
   end
 
   def notification
   end
 
   def cart
+    @equipment = Equipment.all
   end
 
   def qrscanner
@@ -254,8 +258,6 @@ class EquipmentController < ApplicationController
 
   def qrsubmit
     redirect_to equipment_result_path(qr_id: params[:qr_id])
-  end
-
     Report.create(title: params[:title],
                             equip_id: params[:equip_id],
                             equip_type: params[:type],
@@ -276,6 +278,27 @@ class EquipmentController < ApplicationController
 
   def dashboard
     
+  end
+
+  def barcode_gen
+    #@barcode = Barcodes.create('Code 39', {:data => 'BD6193-001-42110012F'})
+    #pdf_renderer = Barcodes::Renderer::Pdf.new(@barcode)
+    #pdf_renderer.render('./public/output.pdf')
+
+    qrcode = RQRCode::QRCode.new("BD7195-001-42110012F")
+    image = qrcode.as_png
+    string = qrcode.to_s
+    png = qrcode.as_png(
+          resize_gte_to: false,
+          resize_exactly_to: false,
+          fill: 'white',
+          color: 'black',
+          size: 240,
+          border_modules: 4,
+          module_px_size: 6,
+          file: nil # path to write
+          )
+    IO.write("./public/qrcode.png", png.to_s.force_encoding("UTF-8"))
   end
 
   private
