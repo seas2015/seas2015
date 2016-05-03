@@ -5,7 +5,7 @@ class EquipmentController < ApplicationController
   # GET /equipment
   # GET /equipment.json
   #require 'zbar'
-  def home
+  def index
     @equipment = Equipment.all
     if user_signed_in?
         session[:sign_in] = true
