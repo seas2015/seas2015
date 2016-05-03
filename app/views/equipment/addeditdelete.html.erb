@@ -14,7 +14,7 @@
     <th>Note</th>
     <th>Expire date</th>
     <th>Status</th>
-    <th>Serial</th>
+    <th>Location</th>
     <th>Price</th>
     <th colspan="3"></th>
   </tr>
@@ -31,7 +31,7 @@
         <td><%= equipment.note %></td>
         <td><%= equipment.exp %></td>
         <td><%= equipment.status %></td>
-        <td><%= equipment.serial %></td>
+        <td><%= equipment.location %></td>
         <td><%= equipment.price %></td>
         <td><%= link_to 'Detail', equipment_item_path(:equip_id => equipment.equip_id) %></td>
         <td><%= link_to 'Edit', edit_equipment_path(equipment) %></td>

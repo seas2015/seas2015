@@ -1,6 +1,5 @@
 
 <p id="notice"><%= notice %></p>
-
 <h3>Listing Equipment</h3>
 <div align="right">
 <%= select_tag "group_action", options_for_select(["--Select action--","Request all","Export to PDF","Export to excel","Add to cart"]) %>
@@ -16,7 +15,7 @@
     <th>Expire date</th>
     <th>Campus</th>
     <th>Status</th>
-    <th>Serial</th>
+    <th>Location</th>
     <th>Price</th>
     <th colspan="3"></th>
   </tr>
@@ -33,7 +32,7 @@
         <td><%= equipment.exp %></td>
         <td><%= equipment.campus %></td>
         <td><%= equipment.status %></td>
-        <td><%= equipment.serial %></td>
+        <td><%= equipment.location %></td>
         <td><%= equipment.price %></td>
         <td><%= link_to 'Detail', equipment_item_path(:equip_id => equipment.equip_id) %></td>
         <td><%= link_to 'Edit', edit_equipment_path(equipment) %></td>

@@ -1,13 +1,17 @@
 class EquipmentController < ApplicationController
   before_action :set_equipment, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, :except => [:show, :index,:advance,:history]
+  before_action :authenticate_user!, :except => [:show, :home,:advance,:result]
   helper :headshot
   # GET /equipment
   # GET /equipment.json
   #require 'zbar'
-  def index
-
+  def home
     @equipment = Equipment.all
+    if user_signed_in?
+        session[:sign_in] = true
+      else
+        @sign_in = false
+      end
   end
 
 
@@ -80,16 +84,29 @@ class EquipmentController < ApplicationController
 
   def result
 
-    @qr1 = Qrio::Qr.load("public/qrpic/blank.png").qr.text
+
+    #if params[:qr_pic] != ''
+      #@qrcodepath = "'public/headshots/" + "#{params[:qr_pic]}" + ".png'"
+      #params[:qr_id] == Qrio::Qr.load(@qrcodepath).qr.text
+    #else
+    #end
+    #@qr1 = Qrio::Qr.load("public/qrpic/1.png").qr.text
+    #params[:qr_id] = @qr1
+    @qr_input = 'no'
     #@qr1 = ZBar::Image.from_jpeg(File.read('public/qrpic/projector.png')).process
     #@qr2 = ZBar::Image.from_jpeg(File.read('public/qrpic/abcd.JPG')).process
     #@qr3 = ZXing.decode 'http://2d-code.co.uk/images/bbc-logo-in-qr-code.gif'
+    if user_signed_in?
+      @current_user = current_user.name
+    else 
+      @current_user = 'Guest'
+    end
     @history = History.all
     @history.create(action: 'search_by_keyword',
-                 user_name: current_user.name,
+                 user_name: @current_user,
                  keyword: params[:keyword])
 
-  if @qr1  != ''
+  if @qr_input  == 'yes' #@qr1 != ''
       params[:keyword] = @qr1
     else
     end
@@ -103,6 +120,7 @@ class EquipmentController < ApplicationController
     else
       @equipment = Equipment.all
     end
+    @equipment = @equipment.where(["qr_id LIKE ?","%#{params[:qr_id]}%"]) if params[:qr_id].present?
     @equipment = @equipment.where(["campus LIKE ?","%#{params[:campus]}%"]) if params[:campus].present?
     @equipment = @equipment.where(["equip_id LIKE ?","%#{params[:equip_id]}%"]) if params[:equip_id].present?
     @equipment = @equipment.where(["status = ?",params[:status]]) if params[:status].present?
@@ -143,7 +161,10 @@ class EquipmentController < ApplicationController
 
   def audit
     @equipment = Equipment.where("process = ?","Pending")
-    @equipment = @equipment.where("ownby = ?",current_user.name)
+    if current_user.name == 'user'
+      @equipment = @equipment.where("ownby = ?",current_user.name)
+    else
+    end
 
     @equipment_c = Equipment.where("process = ?","Complete")
   end
@@ -228,6 +249,13 @@ class EquipmentController < ApplicationController
   def cart
   end
 
+  def qrscanner
+  end
+
+  def qrsubmit
+    redirect_to equipment_result_path(qr_id: params[:qr_id])
+  end
+
     Report.create(title: params[:title],
                             equip_id: params[:equip_id],
                             equip_type: params[:type],
@@ -246,6 +274,10 @@ class EquipmentController < ApplicationController
     @report = Report.all
   end
 
+  def dashboard
+    
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_equipment
@@ -254,7 +286,7 @@ class EquipmentController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def equipment_params
-      params.require(:equipment).permit(:process,:ownby,:status,:name, :equip_id, :buy_date, :brand, :note, :exp, :status, :serial, :price, :pic_id)
+      params.require(:equipment).permit(:location,:process,:ownby,:status,:name, :equip_id, :buy_date, :brand, :note, :exp, :status, :serial, :price, :pic_id)
         end
 
   end

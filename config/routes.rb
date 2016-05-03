@@ -27,8 +27,16 @@ Rails.application.routes.draw do
       post :check_item
       get :notification
       get :cart
+      post :qrscanner
+      post :qrsubmit
+      get :home
+      get :dashboard
     end
   end
+  get 'equipment/dashboard'
+  get 'equipment/home'
+  post 'equipment/qrsubmit'
+  post 'equipment/qrscanner'
   get 'equipment/cart' 
   get 'equipment/notification'
   post 'equipment/check_item'
@@ -54,7 +62,7 @@ Rails.application.routes.draw do
   get 'equipment/doreserve'
   get 'equipment/approve'
 
-  root 'equipment#index'
+  root 'equipment#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,0 +1,76 @@
+<p id="notice"><%= notice %></p>
+<br>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-search fa-fw"></i> Listing Equipment 
+      <div class="pull-right">
+        <div class="btn-group">
+          <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+            Actions
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu pull-right" role="menu">
+            <li><a href="#">Request</a></li>
+            <li><a href="#">Export to PDF</a></li>
+            <li><a href="#">Export to excel</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Add to cart</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+<table class="table table-bordered table-hover table-striped table-condensed">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Id</th>
+      <th>Buy date</th>
+      <th>Brand</th>
+      <th>Note</th>
+      <th>Exp</th>
+      <th>Location</th>
+      <th>Campus</th>
+      <th>Status</th>
+      <th></th>
+      <% if user_signed_in? %>
+          <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+        <% else %>
+          <th></th>
+          <th></th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody align="center">
+    <% @equipment.order(:name).each do |e| %>
+      <tr>
+        <td>&nbsp<%= check_box_tag 'seleced'%></td>
+        <td><%= e.name %></td>
+        <td><%= e.equip_id %></td>
+        <td><%= e.buy_date %></td>
+        <td><%= e.brand %></td>
+        <td><%= e.note %></td>
+        <td><%= e.exp %></td>
+        <td><%= e.location %></td>
+        <td><%= e.campus %></td>
+        <td><%= e.status %></td>
+        <td><%= link_to 'Detail', equipment_item_path(:equip_id => e.equip_id) %></td>
+        <% if user_signed_in? && e.status != 'Reserved' && e.status != 'Pending'%>
+          <td>
+            <%= link_to '#' do %>
+              <i class="fa fa-shopping-cart fa-fw" style="font-size:16px"></i>
+            <% end %>
+          </td>
+          <% @m_confirm = "You are requesting " + "'#{e.equip_id}'" + ". Are you sure?" %>
+          <td><%= link_to 'Request' , equipment_doreserve_path(:equip_id => e.equip_id), 
+          data: { confirm: @m_confirm } %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+</div>

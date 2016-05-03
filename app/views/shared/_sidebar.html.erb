@@ -1,68 +1,94 @@
-<div class="navbar navbar-default" style="background-color:#E3CEF6;border-radius:0px;width:200px;height:550px" >
-      <div class="nav-collapse" >
-        <ul class="nav nav-pills nav-stacked sidebar-menu">
+<div class="navbar-default sidebar" role="navigation">
+  <div class="sidebar-nav navbar-collapse">
+    <ul class="nav" id="side-menu">
+      <li class="sidebar-search">
+
+        <div class="input-group">
+           <%= form_tag equipment_result_path,method: 'post' do %>
+               <span class="input-group-btn">
+                <%= text_field_tag 'keyword',"", placeholder: 'Search...',class:'form-control' %>
+                <%= button_to equipment_result_path, class:"btn btn-default" do %>
+                  <i class="fa fa-search"></i>
+                <% end %>
+                </span>
+            <% end %>
+        </div>
+        <!-- /input-group -->
+      </li>
+      <li>
+        <%= link_to equipment_home_path do %>
+          <i class="fa fa-home fa-fw"></i> Home
+        <% end %>
+      </li>
+      <li>
+        <%= link_to equipment_advance_path do %>
+          <i class="fa fa-search fa-fw"></i> Advance Search
+        <% end %>
+      </li>
+      <li>
+        <%= link_to equipment_myitem_path do %>
+          <i class="fa fa-gift fa-fw"></i> My Item
+        <% end %>
+      </li>
+      <li>
+        <%= link_to equipment_report_path do %>
+          <i class="fa fa-flag fa-fw"></i> Report broke / lost
+        <% end %>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-edit fa-fw"></i> Manager<span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level">
           <li>
-          <hr>
-            <table >
-              <tr>
-                <td>
-            <div class: "navbar-form" sytle="inline">
-            <%= form_tag equipment_result_path,method: 'post' do %>
-              <div style="inline-block">
-                <%= text_field_tag 'keyword',"", placeholder: 'Search',style: "width:100%"%>
-              </td>
-              <td>
-                <%= button_tag(type: 'submit', data: { status: 'Available' }) do %>
-                  <i class="glyphicon glyphicon-search"></i>
-                <% end %>
+            <%= link_to 'Request Manager', equipment_audit_path %>
+          </li>
+          <li>
+             <%= link_to 'Item Manager',equipment_addeditdelete_path %>
+          </li>
+          <li>
+            <%= link_to 'Report Manager', equipment_reported_item_path %>
+          </li>
+          
+        </ul>
+        <!-- /.nav-second-level -->
+      </li>
+       <li>
+        <%= link_to equipment_history_path do %>
+          <i class="fa fa-history fa-fw"></i> History
+        <% end %>
+      </li>
 
-            <% end %>
-          </td>
-          <td>
-              <%= form_tag equipment_index_path do %>
-               <%= button_tag(type: 'submit') do %>
-                  <i class="glyphicon glyphicon-qrcode"></i>
-                <% end %>
-                </div>
-            <% end %>
-          </div>
-        </td>
-        </tr>
-        </table>
-        <hr>
-          <li><%= link_to 'My Item', equipment_myitem_path %></li><hr>
-          <li><%= link_to 'Search History', equipment_history_path %></li><hr>
-          <% if user_signed_in? %>
-            <% if current_user.user_type == 'admin' %>
-              <li><%= link_to 'Request Manager', equipment_audit_path %></li><hr>
-            <% else %>
-            <% end %>
-          <% end %>
-          <li><%= link_to 'Instant Report !', equipment_report_path %></li>
-          <% if user_signed_in? %>
-            <% if current_user.user_type == 'admin' %>
-            <hr>
-              <li><%= link_to 'Add/Edit/Delete', equipment_addeditdelete_path %></li><hr>
-              <li><%= link_to 'Reported Item', equipment_reported_item_path %></li>
-            <% else %>
-            <% end %>
-          <% end %>
-      </ul>
-      <hr>
 
-      <div  style="border-radius:0px; color:grey">
-            <marquee behavior="scroll" direction="up" style="height:150px;" scrollamount="1">Search History :<br>
-            <% History.order(:created_at).uniq(:keyword).each do |h| %>
+
+
+      <li>
+        <%= link_to equipment_dashboard_path do %>
+          <i class="fa fa-dashboard fa-fw"></i> Dashboard
+        <% end %>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+
+
+        <ul class="nav nav-second-level">
+          <li>
+            <a href="flot.html">Flot Charts</a>
+          </li>
+          <li>
+            <a href="morris.html">Morris.js Charts</a>
+          </li>
+        </ul>
+        <li  style="color:grey"><p>&nbsp&nbsp&nbsp Recently search</p>
+            <marquee behavior="scroll" direction="up" style="height:150px;text-align:center" scrollamount="1" >
+              <% History.order(:created_at).uniq(:keyword).each do |h| %>
               <%= link_to h.keyword, equipment_result_path(keyword: h.keyword),method: 'post' %><br>
             <% end %>
             </marquee>
-         </div><br>
-<hr>
-       <font size='1.5em' style='color:grey' >Language 
-        <%= link_to 'English', '#' %> /
-        <%= link_to 'Thai', '#' %>
-        </font>
-      <br><br>
-      <div align="center"><font size='1.5em' style='color:grey' >Version 0.1.0 beta</font></div>
-      </div>
+            <br>
+        </li><br><br><br>
+        <!-- /.nav-second-level -->
+    </ul>
+  </div>
+  <!-- /.sidebar-collapse -->
 </div>
+<!-- /.navbar-static-side -->
+</nav>

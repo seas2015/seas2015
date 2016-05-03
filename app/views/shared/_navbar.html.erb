@@ -1,70 +1,247 @@
-<style>
-.font-white {
-    color: white;
-}
-</style>
-<nav  style="margin-bottom:0%; background: linear-gradient(to bottom, #4d0066 90%,white 100%) ;width:1100px;border-radius:0px" >
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;background-color:purple">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse font-white" id="bs-example-navbar-collapse-1" >
-      <ul class="nav navbar-nav">
-        <li style="color:#4d0066">                                                ............................................</li>
-        <% @path = request.env['PATH_INFO'] %>
-
-        <% if @path == '/equipment' || @path == '/equipment/index' || @path == '/' %>
-          <li><%= link_to 'Home', equipment_index_path,style:"background-color:#F2F2F2;color:darkblue" %></li>
-        <% else %>
-          <li><%= link_to 'Home', equipment_index_path %></li>
-        <% end %>
-
-        <% if @path == '/equipment/advance' %>
-         <li><%= link_to 'Advanced Search', equipment_advance_path,style:"background-color:#F2F2F2;color:darkblue" %></li>
-        <% else %>
-          <li><%= link_to 'Advanced Search', equipment_advance_path %></li>
-        <% end %>
-
-        <% if @path == '/equipment/history' %>
-          <li><%= link_to 'History', equipment_history_path,style:"background-color:#F2F2F2;color:darkblue" %></li>
-        <% else %>
-          <li><%= link_to 'History', equipment_history_path %></li>
-        <% end %>
-        </ul>
     
-      <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to image_tag("/images/cart.png",style:'height:18px'), equipment_cart_path %></li>
-        <li><%= link_to image_tag("/images/notification.png",style:'height:18px'), equipment_notification_path %></li>
-      <% if user_signed_in? %>
-               <li><a>Welcome, <%= current_user.name %>(<%= current_user.user_type %>)</a></li>
-        <li><%= link_to 'Log out', destroy_user_session_path, :method => :delete %></li>
-      <% else %>
-
-      <% if @path == '/users/sign_in' %>
-        <li><%= link_to 'Log in', new_user_session_path,style:"background-color:#F2F2F2;color:darkblue" %></li>
-      <% else %>
-        <li><%= link_to 'Log in', new_user_session_path%></li>
-      <% end %>
-
-      <% if @path == '/users/sign_up'%>
-        <li><%= link_to 'Register', new_user_registration_path,style:"background-color:#F2F2F2;color:darkblue"  %></li>
-      <% else %>
-         <li><%= link_to 'Register', new_user_registration_path  %></li>
-      <% end %>
-
-      <% end %>
-      <li><%= link_to 'EN', '#' ,style:"background-color:#F2F2F2;color:darkblue"%></li>
-        <li><%= link_to 'TH', '#' %></li>
-      </ul>
-    </div>
   </div>
-</nav>
-        
+  <!-- /.navbar-header -->
+  <div class="inline-block">
+    <ul class="nav navbar-top-links navbar-left navbar-link in">
+      <li><%= link_to 'EN', '#' %></li>
+      <li><%= link_to 'TH', '#' %></li>
+    <ul>
+  </div>
+
+  <% if session[:sign_in] == true %>
+  <ul class="nav navbar-top-links navbar-right navbar-link">
+  <li>
+    <%= link_to '#' do %>
+      <i class="fa fa-shopping-cart fa-fw" style="font-size:16px"></i>
+    <% end %>
+  </li>
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+      </a>
+      <ul class="dropdown-menu dropdown-messages">
+        <li>
+          <a href="#">
+            <div>
+              <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+            </div>
+            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+          </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="#">
+            <div>
+              <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+            </div>
+            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+          </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="#">
+            <div>
+              <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+            </div>
+            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+          </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a class="text-center" href="#">
+            <strong>Read All Messages</strong>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      </ul>
+      <!-- /.dropdown-messages -->
+    </li>
+    <!-- /.dropdown -->
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
+      </a>
+      <ul class="dropdown-menu dropdown-tasks">
+        <li>
+          <a href="#">
+            <div>
+              <p>
+                <strong>Task 1</strong>
+                <span class="pull-right text-muted">40% Complete</span>
+              </p>
+              <div class="progress progress-striped active">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                  <span class="sr-only">40% Complete (success)</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="#">
+            <div>
+              <p>
+                <strong>Task 2</strong>
+                <span class="pull-right text-muted">20% Complete</span>
+              </p>
+              <div class="progress progress-striped active">
+                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                  <span class="sr-only">20% Complete</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="#">
+            <div>
+              <p>
+                <strong>Task 3</strong>
+                <span class="pull-right text-muted">60% Complete</span>
+              </p>
+              <div class="progress progress-striped active">
+                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                  <span class="sr-only">60% Complete (warning)</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="#">
+            <div>
+              <p>
+                <strong>Task 4</strong>
+                <span class="pull-right text-muted">80% Complete</span>
+              </p>
+              <div class="progress progress-striped active">
+                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                  <span class="sr-only">80% Complete (danger)</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a class="text-center" href="#">
+            <strong>See All Tasks</strong>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      </ul>
+      <!-- /.dropdown-tasks -->
+    </li>
+    <!-- /.dropdown -->
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+      </a>
+      <ul class="dropdown-menu dropdown-alerts">
+        <li>
+          <a href="#">
+            <div>
+              <i class="fa fa-comment fa-fw"></i> New Comment
+              <span class="pull-right text-muted small">4 minutes ago</span>
+            </div>
+          </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="#">
+            <div>
+              <i class="fa fa-twitter fa-fw"></i> 3 New Followersw
+              <span class="pull-right text-muted small">12 minutes ago</span>
+            </div>
+          </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="#">
+            <div>
+              <i class="fa fa-envelope fa-fw"></i> Message Sent
+              <span class="pull-right text-muted small">4 minutes ago</span>
+            </div>
+          </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="#">
+            <div>
+              <i class="fa fa-tasks fa-fw"></i> New Task
+              <span class="pull-right text-muted small">4 minutes ago</span>
+            </div>
+          </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="#">
+            <div>
+              <i class="fa fa-upload fa-fw"></i> Server Rebooted
+              <span class="pull-right text-muted small">4 minutes ago</span>
+            </div>
+          </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a class="text-center" href="#">
+            <strong>See All Alerts</strong>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      </ul>
+      <!-- /.dropdown-alerts -->
+    </li>
+    <!-- /.dropdown -->
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+      </a>
+      <ul class="dropdown-menu dropdown-user">
+        <li>
+          <%= link_to edit_user_registration_path do %>
+            <i class="fa fa-user fa-fw"></i> User Profile
+          <% end %>
+        </li>
+        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <%= link_to destroy_user_session_path, :method => :delete do %>
+            <i class="fa fa-sign-out fa-fw"></i> Log out</a>
+          <% end %>
+        </li>
+      </ul>
+      <!-- /.dropdown-user -->
+    </li>
+    <!-- /.dropdown -->
+  </ul>
+  <!-- /.navbar-top-links -->
+  <% else %>
+    <ui class="nav navbar-top-links navbar-right navbar-link">
+      <li><%= link_to 'Log in', new_user_session_path %></li>
+      <li><%= link_to 'Sign up', new_user_registration_path %></li>
+    </ui>
+  <% end %>

@@ -13,6 +13,7 @@
     <td><%= e.name %></td>
 	<td>N/A</td>
 	<td><%= link_to 'Approve', equipment_approve_path(:equip_id => e.equip_id) %></td>
+  <td><%= link_to 'Cancel', equipment_cancel_path(:equip_id => e.equip_id) %></td>
   </tr>
   <% end %>
   </table>

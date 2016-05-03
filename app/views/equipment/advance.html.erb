@@ -1,68 +1,64 @@
 <br>
-
-<table style="width:100%;height:250px;border:1px solid lightgrey;">
-    <tr>
-        <td>
-<%= form_tag equipment_result_path, method: 'post' do %>
-  <div class="field">
-    <%= label_tag 'Equipment ID'%><br>
-    <%= text_field_tag :equip_id %><br>
-    <%= label_tag 'Name'%><br>
-    <%= text_field_tag :keyword %><br>
-    <%= label_tag 'Brand'%><br>
-    <%= text_field_tag :brand %><br>
-    <%= label_tag 'Serial Number'%><br>
-    <%= text_field_tag :serial %><br>
-</td>
-<td>
-
-    <%= label_tag 'Buy date'%><br>
-    &nbsp&nbsp&nbsp&nbsp<strong>From&nbsp</strong>
-    <%= date_field_tag :buy_date %><br>
-    &nbsp&nbsp&nbsp&nbsp<strong>To&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong>
-    <%= date_field_tag :buy_date_end %><br><br>
-    <%= label_tag 'Expire date'%><br>
-   &nbsp&nbsp &nbsp&nbsp<strong>From&nbsp</strong>
-    <%= date_field_tag :exp %><br>
-   &nbsp&nbsp &nbsp&nbsp<strong>To&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong>
-    <%= date_field_tag :exp_end %><br>
-<br>
-</td>
-<td>
-
-     <div class="form">
-        <%= label_tag 'Status' %><br><br>
-        <strong style="border:1px solid lightgrey;padding:5%">
-            <%= radio_button_tag 'status', '' ,checked: true%>
-            <%= label_tag 'All'%>
-            <%= radio_button_tag 'status', 'Available' %>
-            <%= label_tag 'Available'%>
-            <%= radio_button_tag 'status', 'Reserved' %>
-            <%= label_tag 'Reserved'%>
-          </strong>
-    </div><br>
-
-    <div class="form">
-        <%= label_tag 'Campus' %><br><br>
-        <strong style="border:1px solid lightgrey;padding:5%">
-            <%= radio_button_tag 'campus', '' ,checked: true%>
-            <%= label_tag 'All'%>
-            <%= radio_button_tag 'campus', 'Rangsit' %>
-            <%= label_tag 'Rangsit'%>
-            <%= radio_button_tag 'campus', 'Bangkadi' %>
-            <%= label_tag 'Bangkadi'%>
-          </strong>
+<div class="panel panel-default" style="width:70%">
+    <div class="panel-heading">
+        <i class="fa fa-search fa-fw"></i> Advance search  
     </div>
+    <!-- /.panel-heading -->
+    <%= form_tag equipment_result_path, method: 'post' do %>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="field">
+                    <%= label_tag 'Equipment ID'%><br>
+                    <%= text_field_tag :equip_id %><br>
+                    <%= label_tag 'Name'%><br>
+                    <%= text_field_tag :keyword %><br>
+                    <%= label_tag 'Brand'%><br>
+                    <%= text_field_tag :brand %><br>
+                    <%= label_tag 'Serial Number'%><br>
+                    <%= text_field_tag :serial %><br>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="field">   
+                    <%= label_tag 'Buy date'%><br>
+                        From
+                    <%= date_field_tag :buy_date %><br><br>
+                        To&nbsp&nbsp&nbsp&nbsp
+                    <%= date_field_tag :buy_date_end %><br><br>
+                        <%= label_tag 'Expire date'%><br>
+                        From    
+                    <%= date_field_tag :exp %><br><br>
+                        To&nbsp&nbsp&nbsp&nbsp
+                    <%= date_field_tag :exp_end %>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <%= label_tag 'Status' %><br><br>
+                    <strong style="border:1px solid lightgrey;padding:5%">
+                        <%= radio_button_tag 'status', '' ,checked: true%>
+                        <%= label_tag 'All'%>
+                        <%= radio_button_tag 'status', 'Available' %>
+                        <%= label_tag 'Available'%>
+                        <%= radio_button_tag 'status', 'Reserved' %>
+                        <%= label_tag 'Reserved'%>
+                    </strong>
+                        <br><br><br>
 
-    </div>
-    </td>
-</table>
-</div><br>
-    <div class="action" style="padding-left:2%;">
-     <%= submit_tag 'Search' %>
-    </div>
-<% end %>
+                    <%= label_tag 'Campus' %><br><br>
+                        <strong style="border:1px solid lightgrey;padding:5%">
+                            <%= radio_button_tag 'campus', '' ,checked: true%>
+                            <%= label_tag 'All'%>
+                            <%= radio_button_tag 'campus', 'Rangsit' %>
+                            <%= label_tag 'Rangsit'%>
+                            <%= radio_button_tag 'campus', 'Bangkadi' %>
+                            <%= label_tag 'Bangkadi'%>
+                        </strong>
+            </div>
+        </div>
+    </div>                       <!-- /.row -->
+</div>
+                        <!-- /.panel-body -->
+ <%= submit_tag 'Submit' %>
 
-
-
-  
+   <% end %>  
