@@ -1,14 +1,29 @@
-<h3>Reserved Item</h3>
-<table border="1" width="100%" style="font-size:12px;background-color:white;" class="table-hover" >
-	<tr>
+<p id="notice"><%= notice %></p>
+<style>
+.btn-special {
+  padding:1px;
+}
+</style>
+<br>
+<%= form_tag equipment_action_path,method: 'get' do %>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-gift fa-fw"></i> My Item
+      
+    </div>
+<table class="table table-bordered table-hover table-striped table-condensed">
+  <thead>
+    <tr>
 		<th>Item ID</th>
 		<th>Item name</th>
 		<th>Request Date</th>
 		<th>Process</th>
 		<th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
 	</tr>
-<tbody align="center">
-	<% @equipment.each do |e| %>
+  </thead>
+
+  <tbody align="center">
+    <% @equipment.each do |e| %>
 	<tr>
 		<td><%= e.equip_id %></td>
 		<td><%= e.name %></td>
@@ -21,5 +36,8 @@
 		<% end %>
 	</tr>
 	<% end %>
-</tbody>
+  </tbody>
 </table>
+<br>
+</div>
+<% end %>

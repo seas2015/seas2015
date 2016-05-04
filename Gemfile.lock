@@ -71,6 +71,7 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.6.0)
+    fastercsv (1.5.5)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     headshot (0.1.6)
@@ -191,6 +192,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   coffee-script-source (= 1.8.0)
   devise
+  fastercsv
   headshot
   jbuilder (~> 2.0)
   jquery-rails

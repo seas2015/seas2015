@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+resources :cart, :collection => { :addMulToCart => :post, :deleteMulFromCart => :post }
+
   post "headshot/capture" => 'headshot#capture', :as => :headshot_capture
   devise_for :users, controllers: { registrations: "registrations/registrations" }
   resources :equipment do
@@ -29,11 +32,37 @@ Rails.application.routes.draw do
       post :qrscanner
       post :qrsubmit
       get :home
+      post :home
       get :dashboard
       get :barcode_gen
       get :cart
+      get :addToCart
+      post :addToCart
+      get :deleteFromCart
+      get :addMulToCart
+      post :addMulToCart
+      get :deleteMulFromCart
+      post :deleteMulFromCart
+      get :action
+      post :action
+      post :equip_qr_gen
+      post :room_qr_gen
+      post :addeditdelete
     end
   end
+  get 'equipment/addeditdelete'
+  post 'equipment/home'
+  post 'equipment/room_qr_gen'
+  post 'equipment/equip_qr_gen'
+  get 'equipment/action'
+  post 'equipment/action'
+  get 'equipment/deleteMulFromCart'
+  post 'equipment/deleteMulFromCart'
+  get 'equipment/addMulToCart'
+  post 'equipment/addMulToCart'
+  post 'equipment/addToCart'
+  get 'equipment/deleteFromCart'
+  get 'equipment/addToCart'
   get 'equipment/cart'
   get 'equipment/dashboard'
   get 'equipment/home'

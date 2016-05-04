@@ -1,3 +1,11 @@
+<br>
+<div class="col-lg-9">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-search fa-fw"></i> New Equipment
+    </div>
+    <!-- /.panel-heading -->
+    
 <%= form_for(@equipment) do |f| %>
   <% if @equipment.errors.any? %>
     <div id="error_explanation">
@@ -10,7 +18,11 @@
       </ul>
     </div>
   <% end %>
-    <div class="field">
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-6">
+                 <div class="field">
       <%= f.label 'equipment id' %><br>
       <%= f.text_field :equip_id %>
     </div>
@@ -31,7 +43,9 @@
       <%= f.label :location %><br>
       <%= f.text_field :location %>
     </div>
-  <div class="field">
+            </div>
+            <div class="col-lg-6">
+                <div class="field">
     <%= f.label :buy_date %><br>
     <%= f.date_select :buy_date %>
   </div>
@@ -54,4 +68,6 @@
   <div class="actions">
     <%= f.submit 'Save'%>
   </div>
-<% end %>
+<% end %>      <!-- /.row -->
+</div>
+</div>

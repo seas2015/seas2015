@@ -40,5 +40,14 @@
         <%= yield %>
     </div>
 </div>
+
+<script>
+  $(document).on('keypress',function(e){
+    var tag = e.target.tagName.toLowerCase();
+    if (tag != 'input' && tag != 'textarea')
+      $("#keyword_2").focus();
+  });
+</script>
+
 </body>
 </html>

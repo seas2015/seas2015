@@ -1,1 +1,88 @@
-<%= @barcode %>
+<br>
+<div class="row">
+<div class="col-lg-6">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-search fa-fw"></i> For Equipment
+    </div>
+    <!-- /.panel-heading -->
+    <%= form_tag equipment_equip_qr_gen_path, method: 'post' do %>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="field">
+                    <%= label_tag 'Equipment ID'%><br>
+                    <%= text_field_tag :equip_id %><br>
+                    <%= label_tag 'Name'%><br>
+                    <%= text_field_tag :keyword %><br>
+                    <%= label_tag 'Brand'%><br>
+                    <%= text_field_tag :brand %><br>
+                    <%= label_tag 'Serial Number'%><br>
+                    <%= text_field_tag :serial %><br>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="field">   
+                    <%= label_tag 'Buy date'%><br>
+                    <%= date_field_tag :buy_date %><br><br>
+                     <%= label_tag 'Campus' %><br><br>
+                        <strong style="border:1px solid lightgrey;padding:5%">
+                            <%= radio_button_tag 'campus', 'Rangsit',checked: true %>
+                            <%= label_tag 'Rangsit'%>
+                            <%= radio_button_tag 'campus', 'Bangkadi' %>
+                            <%= label_tag 'Bangkadi'%>
+                        </strong>
+                </div>
+            </div>
+        </div>
+    </div>                       <!-- /.row -->
+</div>
+                        <!-- /.panel-body -->
+ <%= submit_tag 'Generate QR', :onclick => "alert('Successful!')" %>
+
+   <% end %>  
+</div>
+
+<div class="col-lg-6">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-search fa-fw"></i> For Location
+    </div>
+    <!-- /.panel-heading -->
+    <%= form_tag equipment_room_qr_gen_path, method: 'post' do %>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="field">
+                    <%= label_tag 'Room number'%><br>
+                    <%= text_field_tag :room_id %><br>
+                    <%= label_tag 'Room name'%><br>
+                    <%= text_field_tag :room_name %><br>
+                    <%= label_tag 'Building name'%><br>
+                    <%= text_field_tag :building_name %><br>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="field">   
+                     <%= label_tag 'Campus' %><br><br>
+                        <strong style="border:1px solid lightgrey;padding:5%">
+                            <%= radio_button_tag 'campus', 'Rangsit',checked: true %>
+                            <%= label_tag 'Rangsit'%>
+                            <%= radio_button_tag 'campus', 'Bangkadi' %>
+                            <%= label_tag 'Bangkadi'%>
+                        </strong>
+                </div>
+            </div>
+        </div>
+    </div>                       <!-- /.row -->
+</div>
+                        <!-- /.panel-body -->
+ <br><br><br>
+ <%= submit_tag 'Generate QR', :onclick => "alert('Successful!')" %>
+
+   <% end %>  
+</div>
+
+
+
+</div>

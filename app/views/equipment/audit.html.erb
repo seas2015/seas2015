@@ -1,38 +1,62 @@
-<h3>Requested Item<h3>
-<table border="1" width="100%" style="font-size:12px;background-color:white;" class="table-hover">
-  <tr>
+<p id="notice"><%= notice %></p>
+<style>
+.btn-special {
+  padding:1px;
+}
+</style>
+<br>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-comment fa-fw"></i> Requested Item
+      
+    </div>
+<table class="table table-bordered table-hover table-striped table-condensed">
+  <thead>
+     <tr>
     <th>Item ID</th>
     <th>Item name</th>
-	<th>Request Date</th>
+  <th>Request Date</th>
     <th></th>
   </tr>
 
-  <% @equipment.each do |e| %>
+  </thead>
+
+  <tbody align="center">
+    <% @equipment.each do |e| %>
   <tr align="center">
     <td><%= e.equip_id %></td>
     <td><%= e.name %></td>
-	<td>N/A</td>
-	<td><%= link_to 'Approve', equipment_approve_path(:equip_id => e.equip_id) %></td>
+  <td>N/A</td>
+  <td><%= link_to 'Approve', equipment_approve_path(:equip_id => e.equip_id) %></td>
   <td><%= link_to 'Cancel', equipment_cancel_path(:equip_id => e.equip_id) %></td>
   </tr>
   <% end %>
-  </table>
-  
+  </tbody>
+</table>
+<br>
+</div>
 
-  <br>
-  <h3>Received Item<h3>
-  <table border="1" width="100%" style="font-size:12px;background-color:white;" class="table-hover">
-  <tr>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-thumbs-up fa-fw"></i> Received Item
+      
+    </div>
+<table class="table table-bordered table-hover table-striped table-condensed">
+  <thead>
+<tr>
     <th>Item ID</th>
     <th>Item name</th>
-	<th>Request Date</th>
+  <th>Request Date</th>
     <th>Approve Date</th>
-	<th>Received Date</th>
+  <th>Received Date</th>
   <th>Own by</th>
   <th></th>
   </tr>
+  </thead>
 
-  <% @equipment_c.each do |e| %>
+  <tbody align="center">
+ <% @equipment_c.each do |e| %>
   <tr align="center">
     <td><%= e.equip_id %></td>
     <td><%= e.name %></td>
@@ -43,4 +67,7 @@
     <td><%= link_to 'Return', equipment_return_path(:equip_id => e.equip_id) %></td>
   </tr>
   <% end %>
+  </tbody>
 </table>
+<br>
+</div>

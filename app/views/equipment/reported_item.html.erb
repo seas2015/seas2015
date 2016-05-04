@@ -1,14 +1,18 @@
-
-<style>
-</style>
 <p id="notice"><%= notice %></p>
-<h3>Reported Item</h3>
-<div align="right">
-<%= select_tag "group_action", options_for_select(["--Select action--","Export to PDF","Export to excel","Add to cart"]) %>
-</div><br>
-<table border="1" width="100%" style="font-size:12px;background-color:white;" class="table-hover">
+<style>
+.btn-special {
+  padding:1px;
+}
+</style>
+<br>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-flag fa-fw"></i> Reported Item
+      
+    </div>
+<table class="table table-bordered table-hover table-striped table-condensed">
   <thead>
-  <tr>
+<tr>
     <th>Title</th>
     <th>Equipment ID</th>
     <th>Type</th>
@@ -21,11 +25,11 @@
     <th>Staff Note</th>
     <th></th>
     <th></th>
-  </tr>
+
   </thead>
 
   <tbody align="center">
-  <% @report.order(:created_at).each do |r| %>
+ <% @report.order(:created_at).each do |r| %>
       <tr>
         <td><%= r.title %></td>
         <td><%= r.equip_id %></td>
@@ -44,6 +48,5 @@
   </tbody>
 </table>
 <br>
-<div align="right">
-  <%= button_to 'Add to cart' , '#'%>
 </div>
+

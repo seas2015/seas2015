@@ -12,10 +12,10 @@
     <ul class="nav" id="side-menu">
       <li class="sidebar-search">
         <div class="input-group">
-           <%= form_tag equipment_result_path,method: 'post' do %>
+           <%= form_tag equipment_home_path,method: 'post' do %>
                <span class="input-group-btn">
                 <%= text_field_tag 'keyword',"", placeholder: 'Search...',class:'form-control'%>
-                <%= button_to equipment_result_path, class:"btn btn-default" do %>
+                <%= button_to equipment_home_path, class:"btn btn-default" do %>
                   <i class="fa fa-search"></i>
                 <% end %>
                  <div class="hidden-field">
@@ -33,7 +33,7 @@
       </li>
       <li>
         <%= link_to equipment_advance_path do %>
-          <i class="fa fa-search fa-fw"></i> Advance Search
+          <i class="fa fa-search fa-fw"></i> Advance search
         <% end %>
       </li>
       <li>
@@ -61,6 +61,11 @@
           
         </ul>
         <!-- /.nav-second-level -->
+        <li>
+        <%= link_to equipment_barcode_gen_path do %>
+          <i class="fa fa-qrcode fa-fw"></i> Barcode Generator
+        <% end %>
+      </li>
       </li>
        <li>
         <%= link_to equipment_history_path do %>
@@ -91,7 +96,7 @@
         <li  style="color:grey"><p>&nbsp&nbsp&nbsp Recently search</p>
             <marquee behavior="scroll" direction="up" style="height:150px;text-align:center" scrollamount="1" >
               <% History.order(:created_at).uniq(:keyword).each do |h| %>
-              <%= link_to h.keyword, equipment_result_path(keyword: h.keyword),method: 'post' %><br>
+              <%= link_to h.keyword, equipment_home_path(keyword: h.keyword),method: 'get' %><br>
             <% end %>
             </marquee>
             <br>

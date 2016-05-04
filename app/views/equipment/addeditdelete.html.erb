@@ -1,49 +1,71 @@
 <p id="notice"><%= notice %></p>
-<h3>Listing Equipment</h3>
-<div align="right">
-<%= select_tag "group_action", options_for_select(["--Select action--","Export to PDF","Export to excel","Add to cart"]) %>
-</div><br>
-<table border="1" width="100%" style="font-size:12px;background-color:white;" class="table-hover">
+<style>
+.btn-special {
+  padding:1px;
+}
+</style>
+<br>
+
+<%= form_tag equipment_addeditdelete_path,method: 'post' do %>
+               <span class="input-group-btn">
+                <%= text_field_tag 'keyword',"", placeholder: 'Search...',class:'form-control'%>
+                </span>
+            <% end %>
+<br>
+<%= form_tag equipment_action_path,method: 'get' do %>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-search fa-fw"></i> Listing Equipment 
+      <div class="pull-right">
+        <div class="btn-group btn-special">
+            <%= submit_tag 'Export to PDF', class: "btn btn-primary" %>
+            <%= submit_tag 'Export to excel', class: "btn btn-warning" %>
+            <%= submit_tag 'Add to cart', class: "btn btn-success"%>
+        </div>
+      </div>
+    </div>
+<table class="table table-bordered table-hover table-striped table-condensed">
   <thead>
-  <tr>
-    <th></th>
+    <tr>
+   <th></th>
     <th>Name</th>
     <th>Id</th>
     <th>Buy date</th>
     <th>Brand</th>
-    <th>Note</th>
-    <th>Expire date</th>
-    <th>Status</th>
-    <th>Location</th>
     <th>Price</th>
+    <th>Expire date</th>
+    <th>Location</th>
+    <th>Campus</th>
+    <th>Status</th>
     <th colspan="3"></th>
-  </tr>
+    </tr>
   </thead>
 
-  <tbody>
-  <% @equipment.order(:name).each do |equipment| %>
+  <tbody align="center">
+    <% @equipment.order(:name).each do |e| %>
       <tr>
-        <td>&nbsp<%= check_box_tag 'seleced'%></td>
-        <td><%= equipment.name %></td>
-        <td><%= equipment.equip_id %></td>
-        <td><%= equipment.buy_date %></td>
-        <td><%= equipment.brand %></td>
-        <td><%= equipment.note %></td>
-        <td><%= equipment.exp %></td>
-        <td><%= equipment.status %></td>
-        <td><%= equipment.location %></td>
-        <td><%= equipment.price %></td>
-        <td><%= link_to 'Detail', equipment_item_path(:equip_id => equipment.equip_id) %></td>
-        <td><%= link_to 'Edit', edit_equipment_path(equipment) %></td>
-        <td><%= link_to 'Delete', equipment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>&nbsp<%= check_box_tag "item_ids[]", e.equip_id %></td>
+        <td><%= e.name %></td>
+        <td><%= e.equip_id %></td>
+        <td><%= e.buy_date %></td>
+        <td><%= e.brand %></td>
+        <td><%= e.price %></td>
+        <td><%= e.exp %></td>
+        <td><%= e.location %></td>
+        <td><%= e.campus %></td>
+        <td><%= e.status %></td>
+         <td><%= link_to 'Detail', equipment_item_path(:equip_id => e.equip_id) %></td>
+        <td><%= link_to 'Edit', edit_equipment_path(e) %></td>
+        <td><%= link_to 'Delete', e, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-  <% end %>
+    <% end %>
   </tbody>
 </table>
-
 <br>
-
-<%= link_to 'New', new_equipment_path %><br>
-<div align="right">
-  <%= button_to 'Add to cart' , '#'%>
 </div>
+<% end %>
+
+<%= button_to 'Add New Equipment', new_equipment_path,method: 'get', class: "btn btn-danger" %>
+
+
+

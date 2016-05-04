@@ -6,14 +6,51 @@ class EquipmentController < ApplicationController
   # GET /equipment.json
   #require 'zbar'
   def home
-    @equipment = Equipment.all
     if user_signed_in?
         session[:sign_in] = true
       else
         @sign_in = false
       end
-  end
 
+    #@equipment = Equipment.all
+
+    if user_signed_in?
+      @current_user = current_user.name
+    else 
+      @current_user = 'Guest'
+    end
+    @history = History.all
+    @history.create(action: 'search_by_keyword',
+                 user_name: @current_user,
+                 keyword: params[:keyword])
+
+    @equipment = Equipment.all
+    if params[:keyword].present?
+      if params[:keyword] =~ /\d/ 
+        @equipment = @equipment.where(["equip_id LIKE ?","%#{params[:keyword]}%"])
+      else
+        @equipment = @equipment.where(["lower(name) LIKE ?","%#{params[:keyword]}%"])
+      end
+    elsif params[:keyword_2].present?
+      if params[:keyword_2].include? "loc"
+        @str = params[:keyword_2].sub!("loc", "")
+        @equipment = @equipment.where(location: @str)
+      elsif params[:keyword_2].include? "-"
+        @equipment = @equipment.where(["equip_id = ?","%#{params[:keyword_2]}%"])
+      else
+        @equipment = @equipment.where(["lower(name) LIKE ?","%#{params[:keyword_2]}%"])
+      end
+    else
+      @equipment = Equipment.all
+    end
+    @equipment = @equipment.where(["qr_id LIKE ?","%#{params[:qr_id]}%"]) if params[:qr_id].present?
+    @equipment = @equipment.where(["campus LIKE ?","%#{params[:campus]}%"]) if params[:campus].present?
+    @equipment = @equipment.where(["equip_id LIKE ?","%#{params[:equip_id]}%"]) if params[:equip_id].present?
+    @equipment = @equipment.where(["status = ?",params[:status]]) if params[:status].present?
+    @equipment = @equipment.where(["lower(brand) LIKE ?",params[:brand]]) if params[:brand].present?
+    @equipment = @equipment.where(["buy_date = ?",params[:buy_date]]) if params[:buy_date].present?
+    @equipment = @equipment.where(["exp = ?",params[:exp]]) if params[:exp].present?
+  end
 
   # GET /equipment/1
   # GET /equipment/1.json
@@ -79,19 +116,6 @@ class EquipmentController < ApplicationController
   end
 
   def addeditdelete
-    @equipment = Equipment.all
-  end
-
-  def result
-    #if params[:qr_pic] != ''
-      #@qrcodepath = "'public/headshots/" + "#{params[:qr_pic]}" + ".png'"
-      #params[:qr_id] == Qrio::Qr.load(@qrcodepath).qr.text
-    #else
-    #end
-    #@qr1 = Qrio::Qr.load("public/qrpic/1.png").qr.text
-    #params[:qr_id] = @qr1
-    #@qr_input = 'no'
-    #@qr2 = ZBar::Image.from_jpeg(File.read('public/qrpic/abcd.JPG')).process
     if user_signed_in?
       @current_user = current_user.name
     else 
@@ -102,10 +126,6 @@ class EquipmentController < ApplicationController
                  user_name: @current_user,
                  keyword: params[:keyword])
 
-  #if @qr_input  == 'yes' #@qr1 != ''
-  #   params[:keyword] = @qr1
-  # else
-  # end
     @equipment = Equipment.all
     if params[:keyword].present?
       if params[:keyword] =~ /\d/
@@ -130,6 +150,7 @@ class EquipmentController < ApplicationController
     @equipment = @equipment.where(["buy_date = ?",params[:buy_date]]) if params[:buy_date].present?
     @equipment = @equipment.where(["exp = ?",params[:exp]]) if params[:exp].present?
   end
+
 
   def reported_detail
     @item = Report.find_by(id: params[:id])
@@ -249,10 +270,6 @@ class EquipmentController < ApplicationController
   def notification
   end
 
-  def cart
-    @equipment = Equipment.all
-  end
-
   def qrscanner
   end
 
@@ -280,12 +297,8 @@ class EquipmentController < ApplicationController
     
   end
 
-  def barcode_gen
-    #@barcode = Barcodes.create('Code 39', {:data => 'BD6193-001-42110012F'})
-    #pdf_renderer = Barcodes::Renderer::Pdf.new(@barcode)
-    #pdf_renderer.render('./public/output.pdf')
-
-    qrcode = RQRCode::QRCode.new("BD7195-001-42110012F")
+  def equip_qr_gen
+    qrcode = RQRCode::QRCode.new(params[:equip_id])
     image = qrcode.as_png
     string = qrcode.to_s
     png = qrcode.as_png(
@@ -293,12 +306,115 @@ class EquipmentController < ApplicationController
           resize_exactly_to: false,
           fill: 'white',
           color: 'black',
-          size: 240,
+          size: 580,
           border_modules: 4,
           module_px_size: 6,
-          file: nil # path to write
+          file: nil 
           )
-    IO.write("./public/qrcode.png", png.to_s.force_encoding("UTF-8"))
+    path = "./public/qrcode/equip_qr/" + "#{params[:equip_id]}" + ".png"
+    IO.write(path, png.to_s.force_encoding("UTF-8"))
+    redirect_to :back
+  end
+
+  def room_qr_gen
+    if params[:campus] == "Bangkadi"
+      campus = "bkd"
+    else
+      campus = "rs"
+    end
+    str = "loc" + "#{campus}" + "#{params[:room_id]}"
+    qrcode = RQRCode::QRCode.new(str)
+    image = qrcode.as_png
+    string = qrcode.to_s
+    png = qrcode.as_png(
+          resize_gte_to: false,
+          resize_exactly_to: false,
+          fill: 'white',
+          color: 'black',
+          size: 580,
+          border_modules: 4,
+          module_px_size: 6,
+          file: nil 
+          )
+    path = "./public/qrcode/room_qr/" + "#{str}" + ".png"
+    IO.write(path, png.to_s.force_encoding("UTF-8"))
+    redirect_to :back
+  end
+
+  def cart
+    @equipment = Equipment.all
+    @cart = Cart.where(applicant: current_user.name)
+  end
+
+  def action
+    if params[:commit] == 'Add to cart'
+      addMulToCart(:item_ids)
+    elsif params[:commit] == 'Request'
+      requestMul(:item_ids)
+    elsif params[:commit] == 'Export to excel'
+      tocsv()
+    else
+      topdf
+    end
+  end
+
+  def addToCart
+    e = Equipment.find(params[:id])
+    if Cart.exists?(equip_id: e.equip_id)
+      @alert = "Item already in cart!"
+    else
+      Cart.create(name: e.name,
+        equip_id: e.equip_id,
+        applicant: current_user.name)
+      @alert = "Item added!"
+    end
+    redirect_to :back
+  end
+
+  def addMulToCart(item_ids)
+    @e = Equipment.where(equip_id: params[:item_ids])
+    @e.each do |c|
+      if Cart.exists?(equip_id: c.equip_id)
+      else
+      Cart.create(name: c.name,
+        equip_id: c.equip_id,
+        applicant: current_user.name)
+      end
+    end
+    redirect_to :back
+  end
+
+  def deleteFromCart
+    e = Cart.find(params[:id])
+    e.destroy
+    redirect_to :back
+  end
+
+  def requestMul(item_ids)
+    @name = current_user.name
+    @equipment = Equipment.where(equip_id: params[:item_ids])
+    @equipment.each do |e|
+      e.update(status: 'Pending',process: 'Pending' )
+      e.update(ownby: @name)
+      History.create(action: 'reserve_item',
+                   user_name: current_user.name,
+                   equip_id: e.equip_id)
+    end
+    redirect_to :back
+  end
+
+  def tocsv
+    # CSV.open("./public/Equipment.csv", "wb") do |csv|
+    #  csv << Equipment.attribute_names
+    #  Equipment.all.each do |e|
+    #    csv << e.attributes.values
+    #  end
+   # end
+    redirect_to :back
+  end
+
+  def topdf
+    redirect_to :back
   end
 
   private

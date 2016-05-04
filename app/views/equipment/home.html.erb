@@ -1,21 +1,20 @@
 <p id="notice"><%= notice %></p>
+<style>
+.btn-special {
+  padding:1px;
+}
+</style>
 <br>
+<%= form_tag equipment_action_path,method: 'get' do %>
 <div class="panel panel-default">
     <div class="panel-heading">
         <i class="fa fa-search fa-fw"></i> Listing Equipment 
       <div class="pull-right">
-        <div class="btn-group">
-          <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-            Actions
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu pull-right" role="menu">
-            <li><a href="#">Request</a></li>
-            <li><a href="#">Export to PDF</a></li>
-            <li><a href="#">Export to excel</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Add to cart</a></li>
-          </ul>
+        <div class="btn-group btn-special">
+            <%= submit_tag 'Export to PDF', class: "btn btn-danger" %>
+            <%= submit_tag 'Export to excel', class: "btn btn-warning" %>
+            <%= submit_tag 'Request', class: "btn btn-primary" %>
+            <%= submit_tag 'Add to cart', class: "btn btn-success"%>
         </div>
       </div>
     </div>
@@ -34,7 +33,8 @@
       <th>Status</th>
       <th></th>
       <% if user_signed_in? %>
-          <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+          <th></th>
+          <th></th>
         <% else %>
           <th></th>
           <th></th>
@@ -45,7 +45,7 @@
   <tbody align="center">
     <% @equipment.order(:name).each do |e| %>
       <tr>
-        <td>&nbsp<%= check_box_tag 'seleced'%></td>
+        <td>&nbsp<%= check_box_tag "item_ids[]", e.equip_id %></td>
         <td><%= e.name %></td>
         <td><%= e.equip_id %></td>
         <td><%= e.buy_date %></td>
@@ -58,7 +58,7 @@
         <td><%= link_to 'Detail', equipment_item_path(:equip_id => e.equip_id) %></td>
         <% if user_signed_in? && e.status != 'Reserved' && e.status != 'Pending'%>
           <td>
-            <%= link_to '#' do %>
+            <%= link_to equipment_addToCart_path(id: e.id), :onclick => "alert('Item added!')" do %>
               <i class="fa fa-shopping-cart fa-fw" style="font-size:16px"></i>
             <% end %>
           </td>
@@ -67,6 +67,7 @@
           data: { confirm: @m_confirm } %></td>
         <% else %>
           <td></td>
+          <td></td>
         <% end %>
       </tr>
     <% end %>
@@ -74,3 +75,4 @@
 </table>
 <br>
 </div>
+<% end %>
