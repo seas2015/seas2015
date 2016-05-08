@@ -14,6 +14,7 @@ class EquipmentController < ApplicationController
 
     #@equipment = Equipment.all
 
+   
     if user_signed_in?
       @current_user = current_user.name
     else 
@@ -26,17 +27,14 @@ class EquipmentController < ApplicationController
 
     @equipment = Equipment.all
     if params[:keyword].present?
-      if params[:keyword] =~ /\d/ 
+      if params[:keyword] =~ /\d/
         @equipment = @equipment.where(["equip_id LIKE ?","%#{params[:keyword]}%"])
       else
         @equipment = @equipment.where(["lower(name) LIKE ?","%#{params[:keyword]}%"])
       end
     elsif params[:keyword_2].present?
-      if params[:keyword_2].include? "loc"
-        @str = params[:keyword_2].sub!("loc", "")
-        @equipment = @equipment.where(location: @str)
-      elsif params[:keyword_2].include? "-"
-        @equipment = @equipment.where(["equip_id = ?","%#{params[:keyword_2]}%"])
+      if params[:keyword_2] =~ /\d/
+        @equipment = @equipment.where(["equip_id LIKE ?","%#{params[:keyword_2]}%"])
       else
         @equipment = @equipment.where(["lower(name) LIKE ?","%#{params[:keyword_2]}%"])
       end
@@ -265,6 +263,7 @@ class EquipmentController < ApplicationController
       File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
     else
     end
+    redirect_to :back
   end
 
   def notification
