@@ -1,7 +1,7 @@
 class EquipmentController < ApplicationController
   before_action :set_equipment, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, :except => [:show, :home,:advance,:result]
-  helper :headshot
+  #helper :headshot
   # GET /equipment
   # GET /equipment.json
   #require 'zbar'
@@ -263,6 +263,9 @@ class EquipmentController < ApplicationController
       File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
     else
     end
+
+    
+
     redirect_to :back
   end
 
