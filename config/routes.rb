@@ -2,7 +2,6 @@ Rails.application.routes.draw do
 
 resources :cart, :collection => { :addMulToCart => :post, :deleteMulFromCart => :post }
 
-  #post "headshot/capture" => 'headshot#capture', :as => :headshot_capture
   devise_for :users, controllers: { registrations: "registrations/registrations" }
   resources :equipment do
      collection do

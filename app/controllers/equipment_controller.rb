@@ -1,10 +1,7 @@
 class EquipmentController < ApplicationController
   before_action :set_equipment, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, :except => [:show, :home,:advance,:result]
-  #helper :headshot
-  # GET /equipment
-  # GET /equipment.json
-  #require 'zbar'
+
   def home
     if user_signed_in?
         session[:sign_in] = true
