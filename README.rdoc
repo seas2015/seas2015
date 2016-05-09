@@ -1,28 +1,120 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
+NH1 – System Manual
+School Equipment Auditing System
+1. Introduction
+This is a web application base on Ruby on Rails (ROR). Our purpose is to understand its
+architecture and its usage. We start from visiting
+http://guides.rubyonrails.org/getting_started.html, basic instruction to create a new
+application using ROR.
+2. Installation and Usage
+Windows User:
+a. Install ROR. Go to http://railsinstaller.org/en and install the package its provide.(all of
+things we need were included in this package just install it)
+b. Install text editor, in this case we use “Sublime Text 2”.
+c. Install PostgreSQL(9.3) and PGAdmin III.
+d. Create Heroku account, install Heroku toolbelt https://toolbelt.heroku.com/windows,
+then type “Heroku login” in cmd
+Username: seas2015.siit ,Password: seas2015password
+e. Clone the project from Heroku.
+In terminal : heroku git:clone --app seas
+f. Install RMagick .
+https://www.redmine.org/projects/redmine/wiki/HowTo_install_rmagick_gem_on_Win
+dows
+Note: continue with database preparation and cd into project folder and type “rails server” to
+run the application (it may require you to run “bundle install” before you can run the app)
+Linux User: (we use this)
+a. Install ROR. Go to https://gorails.com/setup/ubuntu/14.04 and follow the instruction.
+b. Install text editor, in this case we use “Sublime Text 2”.
+c. Install PGAdmin III. Open terminal and type: sudo apt-get install pgadmin3
+d. Install Heroku toolbelt. Open terminal and type:
+wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+e. Create Heroku account, install Heroku toolbelt https://toolbelt.heroku.com/windows,
+then type “Heroku login” in cmd
+Username: seas2015.siit@gmail.com ,Password: seas2015password
+f. Clone the project from Heroku.
+In terminal : heroku git:clone --app seas2015NH 1 Sys te m Manual | 2
+g. Install Rmagick.
+In terminal: sudo apt-get install imagemagick libmagickwand-dev
+Note: continue with database preparation and cd into project folder and type “rails server” to
+run the application (it may require you to run “bundle install” before you can run the app)
+Mac User:
+Please visit: https://gorails.com/setup/osx/ for more information.
+Online Development: (Linux environment)
+a. Register free account at https://c9.io/
+b. Clone the project from https://github.com/seas2015/seas2015.git
+Note: github account = username: seas2015.siit@gmail.com password: seas2015password
+Database Preparation:
+a. Create user in PostreSQL (see instruction at https://gorails.com/setup/ubuntu/14.04)
+Username: root
+Password: root
+Note: you can also change the database configuration at “./config/database.yml”
+b. In terminal, type:
+“cd & sudo nano /etc/postgresql/9.3/main/pg_hba.conf “,
+Scroll down and replace the word “peer” with “md5”,ctrl+x to save
+In terminal, type: “sudo service postgresql restart”
+c. Create database, cd in to project folder and type in terminal or cmd :
+rake db:create
+rake db:migrate
+Note: username: admin@seas.com password: password for web interface log in, if create a new
+account please modify user_type in database to be “admin” in order to make all feature available.
+3. Implementation Overview
+Our project made use of the following:
+a.
+b.
+c.
+d.
+e.
+Ubuntu 14.04 64 bit
+Ruby 2.3
+Rails 4.2.6
+PostgreSQL 9.3
+PGAdmin III 1.18.1NH 1 Sys te m Manual | 3
+f.
+Sublime Text 2 build 3103
+Our project is based on MVC principle, there for there will be 3 main part of code which are
+model view and controller.
+a. All the back-end work will be in “../app/controllers/equipment_controller.rb”
+b. All front-end work will be in “../app/views/equipment/”
+Gem included in the project:
+a.
+b.
+c.
+d.
+e.
+Devise (authentication)
+Headshot (Webcam)
+Bootstrap and bootstrap_sb_admin_base_v2 (bootstrap theme)
+Barcodes (QR Generator)
+Qrio (QR Decoder, currently working on)
+Feature Implementation:
+a. Quick searching: searching with item’s name, id
+Related file: home.html.erb , _sidebar.html.erb
+Related method: home
+b. Advance search: searching with more advance option provided such as item’s brand and its
+location.
+Related file: home.html.erb, advance.html.erb
+Related method: home
+c. Quick request and borrow: can also select multiple item to perform an action at a time.
+Related file: home.hml.erb
+Related method: dereserve, requestMul
+d. My item: show item related to the user.
+Related file: myitem.html.erb
+Related method: myitem, cancel
+e. Cart: show selected item perform by user.
+Related file: cart.html.erb
+Related method: cart, addToCart, addMulToCart, deleteFromCart, deleteMulFromCart
+f. Handle request: show list of requested item perform by user.
+Related file: audit.html.erb
+Related method: reported_item, approve
+g. History page: record all action performed by user and staff.
+Related file: history.html.erb
+Related method: <show up in many method>
+h. Instant Report: let user quickly report broken item to staff, including photo uploader in the
+page.
+Related file: report.html.erb
+Related method: dereport, upload_report
+i. QR generator: let staff generate qr for attaching to equipment or location.(e.g.room)
+Related file: barcode_gen.html.erb
+Related method: equip_qr_gen, room_qr_gen
 <tt>rake doc:app</tt>.
