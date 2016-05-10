@@ -47,8 +47,12 @@ resources :cart, :collection => { :addMulToCart => :post, :deleteMulFromCart => 
       post :equip_qr_gen
       post :room_qr_gen
       post :addeditdelete
+      get :qr_decoder
+      post :advance
     end
   end
+  post 'equipment/advance'
+  get 'equipment/qr_decoder'
   get 'equipment/addeditdelete'
   post 'equipment/home'
   post 'equipment/room_qr_gen'

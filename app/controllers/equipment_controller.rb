@@ -144,6 +144,8 @@ class EquipmentController < ApplicationController
     @equipment = @equipment.where(["lower(brand) LIKE ?",params[:brand]]) if params[:brand].present?
     @equipment = @equipment.where(["buy_date = ?",params[:buy_date]]) if params[:buy_date].present?
     @equipment = @equipment.where(["exp = ?",params[:exp]]) if params[:exp].present?
+    @equipment = @equipment.where(:buy_date => params[:buy_date].beginning_of_day..params[:buy_date_end].end_of_day) if params[:buy_date].present?
+    @equipment = @equipment.where(:exp => params[:exp].beginning_of_day..params[:exp_end].end_of_day) if params[:exp].present?
   end
 
 
@@ -274,19 +276,19 @@ class EquipmentController < ApplicationController
                      equip_id: params[:equip_id],
                      detail: params[:note])
       end
-
     else
     end
-
-    
-
     redirect_to :back
   end
 
   def notification
   end
 
-  def qrscanner
+  def qr_decoder
+    path = "./public/qrcode/equip_qr/test.png"
+    @qr = Qrio::Qr.load(path).qr.text.to_s.force_encoding("UTF-8") #not support numeric and some alphabet yet
+    redirect_to equipment_advance_path(qr: @qr)
+
   end
 
   def reported_item

@@ -64,3 +64,19 @@
 
    <% end %>  
 </div>
+
+<div class="col-lg-3" align="center">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-search fa-fw"></i> Test QR decoder  
+    </div>
+
+        <%= link_to equipment_qr_decoder_path, onclick: "alert('test file is store at ./public/qrcode/equip_qr/test.png')" do %>
+          <i class="fa fa-qrcode" style="font-size:250px" ></i>
+        <% end %>
+        <br>
+
+output: <%= params[:qr] %>
+<%= link_to 'clear' , equipment_advance_path %>
+</div>
+</div>
