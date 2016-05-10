@@ -39,6 +39,10 @@
       <%= f.label :serial %><br>
       <%= f.text_field :serial %>
     </div>
+    <div class="field">
+      <%= f.label :campus %><br>
+      <%= f.select :campus,options_for_select(["Rangsit","Bangkadi"]) %>
+    </div>
      <div class="field">
       <%= f.label :location %><br>
       <%= f.text_field :location %>
