@@ -289,22 +289,6 @@ class EquipmentController < ApplicationController
   def qrscanner
   end
 
-  def qrsubmit
-    redirect_to equipment_result_path(qr_id: params[:qr_id])
-    Report.create(title: params[:title],
-                            equip_id: params[:equip_id],
-                            equip_type: params[:type],
-                            note: params[:note],
-                            user_name: current_user.name,
-                            pic_id: @pic_id)
-
-    History.create(action: 'report_item',
-                 user_name: current_user.name,
-                 equip_id: params[:equip_id],
-                 detail: params[:note])
-    redirect_to :back
-  end
-
   def reported_item
     @report = Report.all
   end
