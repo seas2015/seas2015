@@ -257,8 +257,8 @@ class EquipmentController < ApplicationController
       @pic_id = "#{@id}" + "-" + "#{Time.now.to_formatted_s(:number)}"
       directory = "public/report_pic/"
       #path = File.join(directory, @name)
-      #File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
-      #because heroku not allow us to save file here.....
+      File.open(path, "wb") { |f| f.write(params[:upload][:file].read) }
+      because heroku not allow us to save file here.....
       if Report.exists?(equip_id: params[:equip_id])
       else
         Report.create(title: params[:title],
