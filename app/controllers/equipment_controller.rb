@@ -267,7 +267,7 @@ class EquipmentController < ApplicationController
                             note: params[:note],
                             user_name: current_user.name,
                             pic_id: @pic_id,
-                            status: 'Not check')
+                            checked_status: 'Not check')
 
         History.create(action: 'report_item',
                      user_name: current_user.name,
